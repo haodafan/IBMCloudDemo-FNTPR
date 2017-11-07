@@ -1,0 +1,10 @@
+applications:
+- path: .
+  memory: 256M
+  instances: 1
+  domain: mybluemix.net
+  name: Demo-FNTPR
+  host: Demo-FNTPR
+  disk_quota: 256M
+  services:
+    - my-compose-for-mysql-service
