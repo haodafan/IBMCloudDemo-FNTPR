@@ -54,6 +54,22 @@ module.exports = function(app, passport) {
   });
 
   // =====================================
+  // NEW FORM ============================
+  // =====================================
+  app.get('/make-report', isLoggedIn, function(req, res) {
+    console.log("Let's make a new report.");
+    res.render('form.ejs', {user: req.user});
+  });
+
+  // =====================================
+  // VIEW FORM ===========================
+  // =====================================
+  app.get('/view-report', isLoggedIn, function(req, res) {
+    //I don't have anything here yet so this is here temporarily
+    res.redirect('/');
+  });
+
+  // =====================================
   // LOGOUT ==============================
   // =====================================
   app.get('/logout', function(req, res) {

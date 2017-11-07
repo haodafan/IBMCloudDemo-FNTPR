@@ -95,7 +95,7 @@ module.exports = function(passport) {
         }
         else {
           var hashedPassword = loginquery.generateHash(password);
-          query.newQuery("INSERT INTO users (email, password) VALUES ('" + email + "', '" + hashedPassword + "');", function(err, data) {
+          query.newQuery("INSERT INTO users (email, password) VALUES ('" + email + "', '" + hashedPassword + "', false);", function(err, data) {
             console.log("Insert function completed.");
             console.log("data variable contains: ");
             console.log(data);

@@ -97,7 +97,7 @@ connection.connect(function(err) {
 
     //normal schema
     queryDatabase = "";
-    queryTable = "CREATE TABLE IF NOT EXISTS compose.users (ID INT(11) AUTO_INCREMENT PRIMARY KEY, email VARCHAR(255), password VARCHAR(256));"
+    queryTable = "CREATE TABLE IF NOT EXISTS compose.users (ID INT(11) AUTO_INCREMENT PRIMARY KEY, email VARCHAR(255), password VARCHAR(256), report BOOLEAN);"
     connection.query(queryDatabase + queryTable, function (error, data) {
       console.log("Query'd!");
       if (error) {
