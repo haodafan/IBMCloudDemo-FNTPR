@@ -1,0 +1,45 @@
+<!-- views/signup.ejs -->
+<!doctype html>
+<html>
+<head>
+    <title>Your Report</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+    <style>
+        body        { padding-top:80px; }
+    </style>
+</head>
+<body>
+<div class="container">
+
+<div class="row">
+
+    <h1><span class="fa fa-sign-in"></span> Signup</h1>
+
+    <!-- show any messages that come back with authentication -->
+    <% if (message.length > 0) { %>
+        <div class="alert alert-danger"><%= message %></div>
+    <% } %>
+
+    <!-- Database Information -->
+    <h1> YOUR COMPLETE REPORT DATA </h1>
+    <div class = "col-sm-12">
+      <div class = "well">
+        <h3><span class = "fa fa-user"></span> Profile </h3>
+
+        <strong>Username: </strong> <%= req.user.UserName %> <br>
+        <strong>First Nation Name: </strong> <%= req.user.FirstNationName %> <br>
+        <strong>Chief Name: </strong> <%= req.user.ChiefName %> <br>
+        <strong>Contact Name: </strong> <%= req.user.ContactName %> <br>
+        <strong>Phone Number: </strong> <%= req.user.PhoneNO %> <br>
+        <strong>Email: </strong> <%= req.user.Email %> <br>
+        <strong>Date of Creation: </strong> <%= req.user.createDate %> <br>
+
+      </div>
+    </div>
+
+</div>
+
+</div>
+</body>
+</html>

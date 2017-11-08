@@ -37,28 +37,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // CONFIGURATION ===============================================================
-//mongoose.connect(configDB.url); //We will get back to this later~
+var dbConfig = require('./config/database');
 
-// Old way of doing things
-var services = appEnv.services;
-/*
-var mongo_services = services["compose-for-mongodb"];
-assert(!util.isUndefined(mongo_services), "Must be bound to compose-for-mongodb services");
-
-var credentials = mongo_services[0].credentials;
-
-var connectionString = credentials.uri;
-
-mongoose.connect(connectionString);
-*/
-
-var mysql_services = services["compose-for-mysql"];
-assert(!util.isUndefined(mysql_services), "Must be bound to compose-for-mysequel services");
-
-var credentials = mysql_services[0].credentials;
-
-var connectionString = credentials.uri;
-var connection = mysql.createConnection(connectionString);
+var connection = mysql.createConnection(dbConfig);
 
 require('./config/passport')(passport); // pass passport for configuration
 
@@ -91,11 +72,19 @@ connection.connect(function(err) {
     console.log(err);
   }
   else {
+
+    console.log("Everything seems to be in order.")
+
+    /* I DONT BELIEVE WE NEED TO CREATE TABLES NOW SO IL JUST COMMENT THIS OUT
+
+    //
+    // CREATE MAIN USER AUTHENTICATION TABLE -----------------------------------
+
     //var queryDatabase = "CREATE SCHEMA IF NOT EXISTS fn DEFAULT CHARACTER SET utf8 ; USE fn ;"
     //var queryTable = "CREATE TABLE IF NOT EXISTS fn.users (ID INT(11) AUTO_INCREMENT PRIMARY KEY, email VARCHAR(255), password VARCHAR(256));"
-
-
     //normal schema
+
+    //
     queryDatabase = "";
     queryTable = "CREATE TABLE IF NOT EXISTS compose.users (ID INT(11) AUTO_INCREMENT PRIMARY KEY, email VARCHAR(255), password VARCHAR(256), report BOOLEAN);"
     connection.query(queryDatabase + queryTable, function (error, data) {
@@ -111,7 +100,10 @@ connection.connect(function(err) {
         //index(app, passport); //Do dis after this been called! A S Y N C H R O N O U S
       }
     });
+
+    // CREATE TABLE(S) FOR USER REPORT ----------------------------------------- */
   }
+
 });
 
 

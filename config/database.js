@@ -1,12 +1,7 @@
-// IBM Bluemix
-var cfenv = require('cfenv');
-var appEnv = cfenv.getAppEnv();
-
-var services = appEnv.services;
-var mysql_services = services["compose-for-mysql"];
-
-var credentials = mysql_services[0].credentials;
-
-var connectionString = credentials.uri;
-
+var connectionString = `{
+  host: "us-cdbr-sl-dfw-01.cleardb.net:",
+  user: "b4036a300ff623",
+  password: "efa260d2",
+  schema: "ibmx_a49d9433f2a2931"
+}`
 module.exports = connectionString;

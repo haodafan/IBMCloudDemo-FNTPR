@@ -13,8 +13,22 @@ module.exports = function(app, passport) {
   // HOME PAGE (with login links) ========
   // =====================================
   app.get('/', function(req, res) {
-    res.render('index.ejs');
+
+    //UNCOMMENT AFTER DEBUGGING TABLES
+    //res.render('index.ejs');
+
+    //COMMENT OUT AFTER DEBUGGING TABLES
+    res.render('test.ejs', {data: "no data"});
   });
+
+  app.post('/', function(req, res) {
+    var displayAll = require('../models/displayall');
+    displayAll.returnTable(req.table, function(result) {
+      res.render('test.ejs', {data: result})
+    })
+  });
+
+
 
   // =====================================
   // LOGIN ===============================
