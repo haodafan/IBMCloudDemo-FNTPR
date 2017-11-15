@@ -75,7 +75,7 @@ connection.connect(function(err) {
 
     console.log("Everything seems to be in order.")
 
-    /* I DONT BELIEVE WE NEED TO CREATE TABLES NOW SO IL JUST COMMENT THIS OUT
+    /* I DONT BELIEVE WE NEED TO CREATE TABLES NOW SO IL JUST COMMENT THIS OUT */
 
     //
     // CREATE MAIN USER AUTHENTICATION TABLE -----------------------------------
@@ -86,7 +86,7 @@ connection.connect(function(err) {
 
     //
     queryDatabase = "";
-    queryTable = "CREATE TABLE IF NOT EXISTS compose.users (ID INT(11) AUTO_INCREMENT PRIMARY KEY, email VARCHAR(255), password VARCHAR(256), report BOOLEAN);"
+    queryTable = "CREATE TABLE IF NOT EXISTS ibmx_7c3d0b86c1998ef.auth (ID INT(11) AUTO_INCREMENT PRIMARY KEY, email VARCHAR(255), password VARCHAR(256), report BOOLEAN);"
     connection.query(queryDatabase + queryTable, function (error, data) {
       console.log("Query'd!");
       if (error) {
@@ -101,7 +101,7 @@ connection.connect(function(err) {
       }
     });
 
-    // CREATE TABLE(S) FOR USER REPORT ----------------------------------------- */
+    // CREATE TABLE(S) FOR USER REPORT -----------------------------------------
   }
 
 });

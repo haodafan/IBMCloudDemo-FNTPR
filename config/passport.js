@@ -32,7 +32,7 @@ module.exports = function(passport) {
       done(err, user);
     });
     */
-    query.newQuery("SELECT * FROM users u WHERE u.id = '" + id + "';", function(err, data) {
+    query.newQuery("SELECT * FROM auth a WHERE a.id = '" + id + "';", function(err, data) {
       console.log("DESERIALIZE USER INVOKED.");
       var user = data[0]
       console.log(user);
@@ -82,7 +82,7 @@ module.exports = function(passport) {
         }
       });
       */
-      query.newQuery("SELECT email FROM users u WHERE u.email LIKE '" + email + "';", function(error, data) {
+      query.newQuery("SELECT email FROM auth a WHERE a.email LIKE '" + email + "';", function(error, data) {
         if (error) return done(error);
 
         //Checks if the user already exists
@@ -95,12 +95,23 @@ module.exports = function(passport) {
         }
         else {
           var hashedPassword = loginquery.generateHash(password);
-          query.newQuery("INSERT INTO users (email, password) VALUES ('" + email + "', '" + hashedPassword + "', false);", function(err, data) {
+          query.newQuery("INSERT INTO auth (email, password, report) VALUES ('" + email + "', '" + hashedPassword + "', false);", function(err, data) {
             console.log("Insert function completed.");
             console.log("data variable contains: ");
             console.log(data);
             if (err) throw err;
-            return done(null, data[0]);
+
+            //To make it identical to a login...
+            query.newQuery("SELECT * FROM auth a WHERE a.email LIKE '" + email + "';", function(err, data) {
+              //data should contain the password
+              console.log("Data: ");
+              console.log(data);
+              console.log(data[0].password);
+              console.log("Your password: " + password);
+
+              console.log("Correct password. Data: ");
+              return done(null, data[0]);
+            });
           });
         }
       });
@@ -140,7 +151,7 @@ module.exports = function(passport) {
       });
       */
 
-      query.newQuery("SELECT u.email FROM users u WHERE u.email LIKE '" + email + "';", function(error, data) {
+      query.newQuery("SELECT a.email FROM auth a WHERE a.email LIKE '" + email + "';", function(error, data) {
         // if there are any errors, return the error before anything else:
         if (error) return done(error);
         console.log("Data: ");
@@ -154,7 +165,7 @@ module.exports = function(passport) {
 
 
         var valid;
-        query.newQuery("SELECT * FROM users u WHERE u.email LIKE '" + email + "';", function(err, data) {
+        query.newQuery("SELECT * FROM auth a WHERE a.email LIKE '" + email + "';", function(err, data) {
           //data should contain the password
           console.log("Data: ");
           console.log(data);

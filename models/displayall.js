@@ -1,8 +1,8 @@
 var query = require('./query.js');
-var schema = "ibmx_a49d9433f2a2931"
+var schema = "ibmx_7c3d0b86c1998ef"
 module.exports = {
   returnTable: function(tableName, callback) {
-    query.newQuery("SELECT * FROM" + schema + "." + tableName + ";", function(err, data) {
+    query.newQuery("SELECT * FROM " + schema + "." + tableName + ";", function(err, data) {
       if (err) {
         console.log(err);
       }

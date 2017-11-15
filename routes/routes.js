@@ -9,25 +9,30 @@
 // //module.exports = router;
 
 module.exports = function(app, passport) {
-  // =====================================
-  // HOME PAGE (with login links) ========
-  // =====================================
-  app.get('/', function(req, res) {
-
-    //UNCOMMENT AFTER DEBUGGING TABLES
-    //res.render('index.ejs');
-
+  app.get('/test', function(req, res) {
     //COMMENT OUT AFTER DEBUGGING TABLES
     res.render('test.ejs', {data: "no data"});
   });
 
-  app.post('/', function(req, res) {
+  app.post('/test', function(req, res) {
+    console.log("/ FUNCTION INVOKED");
+    //console.log(" =========================================== --- REQ --- =========================================== ");
+    //console.log(req);
+    //console.log(" =========================================== --- RES --- =========================================== ");
+    //console.log(res);
     var displayAll = require('../models/displayall');
-    displayAll.returnTable(req.table, function(result) {
+    displayAll.returnTable(req.body.table, function(result) {
       res.render('test.ejs', {data: result})
-    })
+    });
   });
 
+
+  // =====================================
+  // HOME PAGE (with login links) ========
+  // =====================================
+  app.get('/', function(req, res) {
+      res.render('index.ejs');
+  });
 
 
   // =====================================
@@ -75,6 +80,9 @@ module.exports = function(app, passport) {
     res.render('form.ejs', {user: req.user});
   });
 
+  app.post('/make-report', isLoggedIn, function(req, res) {
+
+  });
   // =====================================
   // VIEW FORM ===========================
   // =====================================
@@ -82,6 +90,7 @@ module.exports = function(app, passport) {
     //I don't have anything here yet so this is here temporarily
     res.redirect('/');
   });
+
 
   // =====================================
   // LOGOUT ==============================
