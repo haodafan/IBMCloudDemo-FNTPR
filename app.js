@@ -39,7 +39,8 @@ app.set('view engine', 'ejs');
 // CONFIGURATION ===============================================================
 var dbConfig = require('./config/database');
 
-var connection = mysql.createConnection(dbConfig);
+// OLD DATABASE SETUP
+//var connection = mysql.createConnection(dbConfig);
 
 require('./config/passport')(passport); // pass passport for configuration
 
@@ -66,45 +67,56 @@ app.use(passport.session());
 app.use(flash());
 
 // DATABASE SETUP ==============================================================
-connection.connect(function(err) {
-  console.log("Performing first time setup. ");
-  if (err) {
-    console.log(err);
-  }
-  else {
 
-    console.log("Everything seems to be in order.")
-
-    /* I DONT BELIEVE WE NEED TO CREATE TABLES NOW SO IL JUST COMMENT THIS OUT */
-
-    //
-    // CREATE MAIN USER AUTHENTICATION TABLE -----------------------------------
-
-    //var queryDatabase = "CREATE SCHEMA IF NOT EXISTS fn DEFAULT CHARACTER SET utf8 ; USE fn ;"
-    //var queryTable = "CREATE TABLE IF NOT EXISTS fn.users (ID INT(11) AUTO_INCREMENT PRIMARY KEY, email VARCHAR(255), password VARCHAR(256));"
-    //normal schema
-
-    //
-    queryDatabase = "";
-    queryTable = "CREATE TABLE IF NOT EXISTS ibmx_7c3d0b86c1998ef.auth (ID INT(11) AUTO_INCREMENT PRIMARY KEY, email VARCHAR(255), password VARCHAR(256), report BOOLEAN);"
-    connection.query(queryDatabase + queryTable, function (error, data) {
-      console.log("Query'd!");
-      if (error) {
-        if (error.code == 'ER_TABLE_EXISTS_ERROR') {
-          console.log("The table already exists");
-        }
-        console.log(error);
-      }
-      else {
-        console.log("Table created.");
-        //index(app, passport); //Do dis after this been called! A S Y N C H R O N O U S
-      }
-    });
-
-    // CREATE TABLE(S) FOR USER REPORT -----------------------------------------
-  }
-
+var connectionPool = mysql.createPool(dbConfig);
+connectionPool.getConnection(function(err, connection) {
+  if (err) throw err;
+  //Nothing goes here yet
 });
+
+
+// // THIS IS THE OLD DATABASE SETUP
+// connection.connect(function(err) {
+//   console.log("Performing first time setup. ");
+//   if (err) {
+//     console.log(err);
+//   }
+//   else {
+//
+//     console.log("Everything seems to be in order.")
+//
+//     /* I DONT BELIEVE WE NEED TO CREATE TABLES NOW SO IL JUST COMMENT THIS OUT */
+//
+//     //
+//     // CREATE MAIN USER AUTHENTICATION TABLE -----------------------------------
+//
+//     //var queryDatabase = "CREATE SCHEMA IF NOT EXISTS fn DEFAULT CHARACTER SET utf8 ; USE fn ;"
+//     //var queryTable = "CREATE TABLE IF NOT EXISTS fn.users (ID INT(11) AUTO_INCREMENT PRIMARY KEY, email VARCHAR(255), password VARCHAR(256));"
+//     //normal schema
+//
+//     //
+//     /*
+//     queryDatabase = "";
+//     queryTable = "CREATE TABLE IF NOT EXISTS ibmx_7c3d0b86c1998ef.auth (ID INT(11) AUTO_INCREMENT PRIMARY KEY, email VARCHAR(255), password VARCHAR(256), report BOOLEAN);"
+//     connection.query(queryDatabase + queryTable, function (error, data) {
+//       console.log("Query'd!");
+//       if (error) {
+//         if (error.code == 'ER_TABLE_EXISTS_ERROR') {
+//           console.log("The table already exists");
+//         }
+//         console.log(error);
+//       }
+//       else {
+//         console.log("Table created.");
+//         //index(app, passport); //Do dis after this been called! A S Y N C H R O N O U S
+//       }
+//     });
+//     */
+//
+//     // CREATE TABLE(S) FOR USER REPORT -----------------------------------------
+//   }
+//
+// });
 
 
 // ROUTES ======================================================================

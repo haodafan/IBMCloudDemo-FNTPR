@@ -32,7 +32,7 @@ module.exports = function(passport) {
       done(err, user);
     });
     */
-    query.newQuery("SELECT * FROM auth a WHERE a.id = '" + id + "';", function(err, data) {
+    query.newQuery("SELECT * FROM user u WHERE u.id = '" + id + "';", function(err, data) {
       console.log("DESERIALIZE USER INVOKED.");
       var user = data[0]
       console.log(user);
@@ -47,16 +47,19 @@ module.exports = function(passport) {
   // by default, if there was no name, it would just be called 'local'
   passport.use('local-signup', new LocalStrategy({
     //by default, local strategy uses username and password, we will override with email
-    usernameField : 'email',
+    usernameField : 'userName',
     passwordField : 'password',
     passReqToCallback : true // allows us to pass back the entire request to the callback
   },
-  function(req, email, password, done) {
+  function(req, userName, password, done) {
+    console.log(" ---------------- PASSPORT REQUEST ---------------------");
+    console.log(req);
+    console.log(" -------------------------------------------------------");
 
     //asynchronuous :P
     //User.findOne won't fire unless data is sent back
     process.nextTick(function() {
-      //find a user whose email is the same as the forms email
+      //find u user whose email is the same as the forms email
       //we are checking to see if the user is trying to login already exists
       /* OLD MONGOOSE FUNCTION
       User.findOne({ 'local.email' : email}, function(err, user) {
@@ -82,7 +85,7 @@ module.exports = function(passport) {
         }
       });
       */
-      query.newQuery("SELECT email FROM auth a WHERE a.email LIKE '" + email + "';", function(error, data) {
+      query.newQuery("SELECT UserName FROM user u WHERE u.UserName LIKE '" + userName + "';", function(error, data) {
         if (error) return done(error);
 
         //Checks if the user already exists
@@ -91,18 +94,25 @@ module.exports = function(passport) {
         var statement = (data.length > 0);
         console.log(statement);
         if (statement) {
-          return done(null, false, req.flash('signupMessage', 'That email is already in use'));
+          return done(null, false, req.flash('signupMessage', 'That username is already in use'));
         }
         else {
+          var queryUser;
           var hashedPassword = loginquery.generateHash(password);
-          query.newQuery("INSERT INTO auth (email, password, report) VALUES ('" + email + "', '" + hashedPassword + "', false);", function(err, data) {
+
+          queryUser = "INSERT INTO user (UserName, FirstNationName, ChiefName, ContactName, PhoneNO, Email, CreateDate, password) "
+                    + " VALUES ('" + userName + "', '" + hashedPassword + "', 'blank', 'blank', 'blank', 'blank', NOW(), '" + hashedPassword + "');";
+
+
+
+          query.newQuery(queryUser, function(err, data) {
             console.log("Insert function completed.");
             console.log("data variable contains: ");
             console.log(data);
             if (err) throw err;
 
             //To make it identical to a login...
-            query.newQuery("SELECT * FROM auth a WHERE a.email LIKE '" + email + "';", function(err, data) {
+            query.newQuery("SELECT * FROM user u WHERE u.UserName LIKE '" + userName + "';", function(err, data) {
               //data should contain the password
               console.log("Data: ");
               console.log(data);
@@ -126,13 +136,13 @@ module.exports = function(passport) {
   // by default, if there was no name, it would just be called 'local'
   passport.use('local-login', new LocalStrategy({
     // by default, local strategy uses username and password, we will override with email
-      usernameField : 'email',
+      usernameField : 'userName',
       passwordField : 'password',
       passReqToCallback : true
     },
-    function(req, email, password, done) {// callback with email and password from our form
+    function(req, userName, password, done) {// callback with email and password from our form
 
-      // find a user whose email is the same as the form's email
+      // find u user whose email is the same as the form's email
       // we are checking to see if the user trying to login exists
       /* OLD MONGOOSE FUNCTION
       User.findOne({'local.email' : email}, function(err, user) {
@@ -150,8 +160,9 @@ module.exports = function(passport) {
         return done(null, user);
       });
       */
+      console.log("LOGIN FUNCTION INVOKED!");
 
-      query.newQuery("SELECT a.email FROM auth a WHERE a.email LIKE '" + email + "';", function(error, data) {
+      query.newQuery("SELECT userName FROM user u WHERE u.UserName LIKE '" + userName + "';", function(error, data) {
         // if there are any errors, return the error before anything else:
         if (error) return done(error);
         console.log("Data: ");
@@ -165,21 +176,21 @@ module.exports = function(passport) {
 
 
         var valid;
-        query.newQuery("SELECT * FROM auth a WHERE a.email LIKE '" + email + "';", function(err, data) {
+        query.newQuery("SELECT * FROM user u WHERE u.UserName LIKE '" + userName + "';", function(err, data) {
           //data should contain the password
           console.log("Data: ");
           console.log(data);
           console.log(data[0].password);
           console.log("Your password: " + password);
 
-          if (loginquery.validPassword(email, password, data)) {
+          if (loginquery.validPassword(userName, password, data)) {
             console.log("Correct password. Data: ");
             console.log(data);
             //If all is well...
             return done(null, data[0]);
           }
           else {
-            console.log(loginquery.validPassword(email, password));
+            //console.log(loginquery.validPassword(userName, password));
             console.log("Password incorrect.");
             return done(null, false, req.flash('loginMessage', 'Incorrect Password.'));
           }

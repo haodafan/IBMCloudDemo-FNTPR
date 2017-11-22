@@ -8,7 +8,10 @@ module.exports = {
       }
       else {
         console.log(data);
-        return callback(data);
+
+        var strData = JSON.stringify(data);
+
+        return callback(strData);
       }
     });
   }

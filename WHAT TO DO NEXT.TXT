@@ -1,0 +1,11 @@
+NEXT STEPS:
+1. Create a page that queries from the database. [x]
+2. Create a NEW SIGNUP page based on Linda's database [x]
+3. Add a PASSWORD column to the user table [x]
+4. Create a NEW FORM page for reports
+5. Modify the make-report.js and passport.js files for the new pages
+
+IMMEDIATE CONCERNS:
+OK NEW PLAN FOR SIGNUP PAGE
+ONLY USE USERNAME AND PASSWORD FOR THE OLD PAGE, AND LEAVE PARTS BLANK.
+UPON SUCCESS, REDIRECT TO ANOTHER PAGE TO FILL IN THE REST.

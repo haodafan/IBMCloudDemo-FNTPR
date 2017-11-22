@@ -9,13 +9,44 @@
 // //module.exports = router;
 
 module.exports = function(app, passport) {
+  // ======================================
+  // DEBUGGING ROUTES =====================
+  // ======================================
+  app.get('/make-query', function(req, res) {
+    res.render('querydatabase.ejs', {data: "no data"});
+  });
+  app.post('/make-query', function(req, res) {
+    console.log("/make-query post route function INVOKER");
+
+    /*
+    console.log("FIRST LETS MAKE SURE THE TEXTAREA WORKS");
+    console.log(req.body.userQuery);
+
+    strQuery = JSON.stringify(req.body.userQuery);
+
+    res.render('querydatabase.ejs', {data: strQuery});
+
+     */
+    var query = require('../models/query');
+    console.log(req.body.userQuery);
+    query.newQuery(req.body.userQuery, function(err, result) {
+      if (err) {
+        console.log(err);
+      }
+      strResult = JSON.stringify(result);
+      res.render('querydatabase.ejs', {data: strResult});
+    });
+
+  });
+
+
   app.get('/test', function(req, res) {
     //COMMENT OUT AFTER DEBUGGING TABLES
     res.render('test.ejs', {data: "no data"});
   });
 
   app.post('/test', function(req, res) {
-    console.log("/ FUNCTION INVOKED");
+    console.log("/test post route function INVOKED");
     //console.log(" =========================================== --- REQ --- =========================================== ");
     //console.log(req);
     //console.log(" =========================================== --- RES --- =========================================== ");
@@ -39,30 +70,58 @@ module.exports = function(app, passport) {
   // LOGIN ===============================
   // =====================================
   app.get('/login', function(req, res) {
+    console.log("app get '/login'");
     res.render('login.ejs', {message: req.flash('loginMessage')});
   });
 
   // process the login form
-   app.post('/login', passport.authenticate('local-login', {
+   app.post('/login', function(req, res) {
+     passport.authenticate('local-login', {
      successRedirect : '/profile',
      failureRedirect : '/login',
      failureFlash : true //allow flash messages
-   }));
+    });
+   });
 
-  // =====================================
-  // SIGNUP ==============================
-  // =====================================
+   // =====================================
+   // SIGNUP ==============================
+   // =====================================
   app.get('/signup', function(req, res) {
     //DEBUGGING
-    console.log(req);
+    console.log("app get /signup");
+    console.log(req.body);
     res.render('signup.ejs', {message: req.flash('signupMessage')});
   });
   // process the signup form
   app.post('/signup', passport.authenticate('local-signup', {
-    successRedirect : '/profile',
-    failureRedirect : '/signup',
-    failureFlash : true //allows flash messages
-  }));
+      successRedirect : '/signup-next',
+      failureRedirect : '/signup',
+      failureFlash : true //allows flash messages
+    }));
+
+// process another signup form
+  app.get('/signup-next', isLoggedIn, function(req, res) {
+    console.log("app get /signup-next");
+    console.log(req.body);
+    console.log("=============================================================");
+    console.log(req.user);
+    res.render('signup2.ejs', {message: req.flash('signupMessage')});
+  });
+  app.post('/signup-next', isLoggedIn, function(req, res) {
+    console.log("app post /signup-next");
+    console.log(req.body);
+    console.log("=============================================================");
+    console.log(req.user);
+    var make = require('../models/make-report.js');
+    make.createUserProfile(req.body, req.user, function() {
+      console.log("SUCCESS!");
+      res.redirect('/profile');
+    });
+  });
+
+  // =====================================
+  // PROFILE =============================
+  // =====================================
 
   app.get('/profile', isLoggedIn, function(req, res) {
     //DEBUGGING
@@ -76,12 +135,23 @@ module.exports = function(app, passport) {
   // NEW FORM ============================
   // =====================================
   app.get('/make-report', isLoggedIn, function(req, res) {
+    console.log("/make-report get route function INVOKED");
     console.log("Let's make a new report.");
     res.render('form.ejs', {user: req.user});
   });
 
   app.post('/make-report', isLoggedIn, function(req, res) {
+    console.log("/make-report post route function INVOKED");
+    var make = require('../models/make-report.js');
 
+    console.log("Pass in this variable: ");
+    console.log(req.body);
+    console.log("Pass in this variable as well: ");
+    console.log(req.user);
+    make.createReport(req.body, req.user, function() {
+      console.log("SUCCESS!");
+      res.redirect('/profile');
+    });
   });
   // =====================================
   // VIEW FORM ===========================
@@ -90,6 +160,31 @@ module.exports = function(app, passport) {
     //I don't have anything here yet so this is here temporarily
     res.redirect('/');
   });
+
+  //THIS IS FOR DEBUGGING PURPOSES
+  //COMMENT OUT IN FINAL DEMO
+  /*
+  */
+  app.get('/delete-all-data-from-table-user', function(req, res) {
+    var query = require('../models/query.js');
+    query.newQuery("DELETE FROM user", function(req, res) {
+      if (err) {
+        console.log(err);
+      }
+      else {
+        console.log("DELETED.");
+        res.redirect('/');
+      }
+    });
+  });
+  app.get('/delete-all-data-from-table-funding', function(req, res) {
+    var query = require('../models/query.js');
+    query.newQuery("DELETE FROM funding", function(req, res) {
+      console.log("DELETED.");
+      res.redirect('/');
+    });
+  });
+  // DEBUGGING
 
 
   // =====================================
