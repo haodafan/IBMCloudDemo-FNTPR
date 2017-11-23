@@ -17,13 +17,15 @@ This cloud-based form provides another, more efficient way to report income, if 
 The logic of this application is mainly done in Javascript. Tools used: 
 - Server-side logic: Node.JS
 - Framework: ExpressJS
-- Front-end templating: ejs
+- User authentication: Passport
+- Front-end templating engine: ejs
+- Front-end CSS: Bootstrap
 
 ## Database 
 **Database used: ClearDB for MySQL**
 ### Database Structure
 ![Database structure](https://raw.githubusercontent.com/haodafan/IBMCloudDemo-FNTPR/master/bluemix.png "Database Structure")
-** Table Overview ** 
+**Overview of Tables** 
 - user: contains information about the user (information entered in the sign-up page). Note the password column is missing from this picture. 
 - funding: contains the user's income report
 - funding_use: contains a list of IDs that link to the ways the government funds are used for that user's funding report
