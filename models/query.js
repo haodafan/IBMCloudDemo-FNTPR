@@ -13,6 +13,7 @@ module.exports = {
       if (err) throw err;
       console.log("NEW QUERY FUNCTION CALLED.");
       console.log("QUERY: ");
+      console.log(query);
       connection.query(query, function(error, data) {
         if (error) {
           connection.release();

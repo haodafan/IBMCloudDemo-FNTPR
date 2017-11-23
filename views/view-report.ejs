@@ -27,16 +27,32 @@
       <div class = "well">
         <h3><span class = "fa fa-user"></span> Profile </h3>
 
-        <strong>Username: </strong> <%= req.user.UserName %> <br>
-        <strong>First Nation Name: </strong> <%= req.user.FirstNationName %> <br>
-        <strong>Chief Name: </strong> <%= req.user.ChiefName %> <br>
-        <strong>Contact Name: </strong> <%= req.user.ContactName %> <br>
-        <strong>Phone Number: </strong> <%= req.user.PhoneNO %> <br>
-        <strong>Email: </strong> <%= req.user.Email %> <br>
-        <strong>Date of Creation: </strong> <%= req.user.createDate %> <br>
+        <strong>Username: </strong> <%= user.UserName %> <br>
+        <strong>First Nation Name: </strong> <%= user.FirstNationName %> <br>
+        <strong>Chief Name: </strong> <%= user.ChiefName %> <br>
+        <strong>Contact Name: </strong> <%= user.ContactName %> <br>
+        <strong>Phone Number: </strong> <%= user.PhoneNO %> <br>
+        <strong>Email: </strong> <%= user.Email %> <br>
+        <strong>Date of Creation: </strong> <%= user.createDate %> <br>
 
       </div>
     </div>
+    <div class = "well">
+      <h3><span class = "fa fa-user"></span> This year's report </h3>
+
+      <strong>Funding Provided: </strong> <%= rep.FundingProvided %> <br>
+      <strong>Funding Spent: </strong> <%= rep.FundingSpent %> <br>
+      <strong>Funding Recovered: </strong> <%= rep.FundingProvided - rep.FundingSpent %> <br>
+
+
+      <strong>Number of Clients Served: </strong> <%= rep.NumberOfClientServed %> <br>
+      <strong>Home Care Priorities: </strong> <%= rep.HomeCarePriorities %> <br>
+      <strong>Comments: </strong> <%= rep.Comments %> <br>
+      <strong>Approved: </strong> <%= rep.Approved %> <br>
+      <strong>Submit Date: </strong> <%= rep.SubmitDate %> <br>
+
+    </div>
+  </div>
 
 </div>
 

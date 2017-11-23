@@ -75,13 +75,11 @@ module.exports = function(app, passport) {
   });
 
   // process the login form
-   app.post('/login', function(req, res) {
-     passport.authenticate('local-login', {
+   app.post('/login', passport.authenticate('local-login', {
      successRedirect : '/profile',
      failureRedirect : '/login',
      failureFlash : true //allow flash messages
-    });
-   });
+    }));
 
    // =====================================
    // SIGNUP ==============================
@@ -105,6 +103,7 @@ module.exports = function(app, passport) {
     console.log(req.body);
     console.log("=============================================================");
     console.log(req.user);
+    console.log("RENDERING NEW PAGE");
     res.render('signup2.ejs', {message: req.flash('signupMessage')});
   });
   app.post('/signup-next', isLoggedIn, function(req, res) {
@@ -126,9 +125,21 @@ module.exports = function(app, passport) {
   app.get('/profile', isLoggedIn, function(req, res) {
     //DEBUGGING
     console.log(req.user);
-    res.render('profile.ejs', {
-      user : req.user // get the user out of session and pass to template
-    });
+    var query = require('../models/query.js');
+    query.newQuery("SELECT id FROM funding f WHERE f.userId = " + req.user.ID, function(err, data) {
+      var isReport;
+      if (data.length > 0) {
+        isReport = true;
+      }
+      else {
+        isReport = false;
+      }
+      res.render('profile.ejs', {
+        user : req.user, // get the user out of session and pass to template
+        isReport : isReport
+      });
+    })
+
   });
 
   // =====================================
