@@ -168,8 +168,15 @@ module.exports = function(app, passport) {
   // VIEW FORM ===========================
   // =====================================
   app.get('/view-report', isLoggedIn, function(req, res) {
-    //I don't have anything here yet so this is here temporarily
-    res.redirect('/');
+    var display = require('../models/displayall.js');
+    // This is a several step process:
+    // 1. Get data for user profile
+    // 2. Get data for basic funding report
+    // 3. Get data for the list of funding administration
+    // 4. Get data for the list of funding uses
+
+
+
   });
 
   //THIS IS FOR DEBUGGING PURPOSES
