@@ -44,12 +44,51 @@
       <strong>Funding Spent: </strong> <%= rep.FundingSpent %> <br>
       <strong>Funding Recovered: </strong> <%= rep.FundingProvided - rep.FundingSpent %> <br>
 
+      <strong> List of Administrators of Home and Community Care Services </strong> <br>
+      <ul>
+        <%= if (admin[0] === true) { %>
+          <li> Direct delivery by the community </li>
+        <% } if (admin[1]] === true) { %>
+          <li> Third-party service delivery organization </li>
+        <% } if (admin[2] === true) { %>
+          <li> Tribal council </li>
+        <% } if (admin[3] === true) { %>
+          <li> Local Health Integration Network </li>
+        <% } if (admin[4] === true) { %>
+          <li> Other forms of administration </li>
+        <% } %>
+      </ul> <br>
 
       <strong>Number of Clients Served: </strong> <%= rep.NumberOfClientServed %> <br>
       <strong>Home Care Priorities: </strong> <%= rep.HomeCarePriorities %> <br>
-      <strong>Comments: </strong> <%= rep.Comments %> <br>
-      <strong>Approved: </strong> <%= rep.Approved %> <br>
-      <strong>Submit Date: </strong> <%= rep.SubmitDate %> <br>
+
+      <strong> List of uses for government funding </strong>
+      <ul>
+        <%= if (use[0] === true) { %>
+          <li> Direct service for home or community care and/or palliative care (direct employed by the First Nations) </li>
+        <% } if (use[1] === true) { %>
+          <li> Direct services for home or community care and/or palliative and end-of-life care (provided by another organization) </li>
+        <% } if (use[2] === true) { %>
+          <li> Training and education </li>
+        <% } if (use[3] === true) { %>
+          <li> Operational, oversight, or administrative expenses </li>
+        <% } if (use[4] === true) { %>
+          <li> Recruitment </li>
+        <% } if (use[5] === true) { %>
+          <li> Supplies/equipment for clients/patients </li>
+        <% } if (use[6] === true) { %>
+          <li> Office supplies/equipment/IT solutions for administering the home and community care program </li>
+        <% } if (use[7] === true) { %>
+          <li> Travel </li>
+        <% } if (use[8] === true) { %>
+          <li> Other home and community care or palliative and end-of-life care priorities: <br>
+          <%= other %> </li>
+        <% } %>
+      </ul> <br>
+
+      <strong> Comments: </strong> <%= rep.Comments %> <br>
+      <strong> Approved: </strong> <%= rep.Approved %> <br>
+      <strong> Submit Date: </strong> <%= rep.SubmitDate %> <br>
 
     </div>
   </div>
