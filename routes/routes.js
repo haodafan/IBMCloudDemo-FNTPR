@@ -199,41 +199,41 @@ module.exports = function(app, passport) {
                 console.log(err);
               }
               else {
-                for (var i = 0; i < 5; i++) {
-                  for (var dataItem in dataAdmin) {
-                    if (dataItem.LKPFundingAdministorID === (i * 10) + 1) {
-                      admin[i] = true;
-                    }
-                  }
+                console.log("dataAdmin: ");
+                console.log(dataAdmin);
+                console.log("first element: ");
+                console.log(dataAdmin[0]);
+                console.log("third element: ");
+                console.log(dataAdmin[2]); //NOTE THIS WORKS BUT DATAITEM DOES NOT
+                for (var i = 0; i < dataAdmin.length; i++) {
+                  admin[(dataAdmin[i].LKPFundingAdministorID - 1)/10] = true;
                 }
+
+                console.log("admin: ");
+                console.log(admin);
 
                 //4 - Funding Use
                 var use = [false, false, false, false, false, false, false, false, false]
                 var comments;
-                query.newQuery("SELECT * FROM funding_use WHERE FundingID = " + dataFunding[0].ID + "ORDER BY LKPFundingUserID;", function(err, dataUse) {
+                query.newQuery("SELECT * FROM funding_use WHERE FundingID = " + dataFunding[0].ID + " ORDER BY LKPFundingUseID;", function(err, dataUse) {
                   if (err) {
                     console.log(err);
                   }
                   else {
-                    for (var i = 0; i < 9; i++) {
-                      for (var dataItem in dataUse) {
-                        if (dataItem.LKPFundingUseID === (i * 10) + 1) {
-                          use[i] = true;
-                        }
-                        if (dataItem.LKPFundingUseId === 81) {
-                          comments = dataItem.comments // VERIFY IF THIS ID NUMBER IS CORRECT
-                        }
-                      }
+                    for (var i = 0; i < dataUse.length; i++) {
+                      use[(dataUse[i].LKPFundingUseID - 1) / 10] = true;
                     }
+                    console.log("Use: ");
+                    console.log(use);
 
                     //NOW WE RENDER THE PAGE WITH ALLLLLLLL THE DATA
                     res.render('view-report.ejs', {
                       user : dataUser[0],
                       rep : dataFunding[0],
-                      admin: admin,
-                      use: use,
+                      admin : admin,
+                      use : use,
                       other: comments
-                    })
+                    });
                   }
                 });
               }

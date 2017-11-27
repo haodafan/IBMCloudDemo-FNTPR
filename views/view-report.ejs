@@ -13,14 +13,6 @@
 <div class="container">
 
 <div class="row">
-
-    <h1><span class="fa fa-sign-in"></span> Signup</h1>
-
-    <!-- show any messages that come back with authentication -->
-    <% if (message.length > 0) { %>
-        <div class="alert alert-danger"><%= message %></div>
-    <% } %>
-
     <!-- Database Information -->
     <h1> YOUR COMPLETE REPORT DATA </h1>
     <div class = "col-sm-12">
@@ -44,11 +36,11 @@
       <strong>Funding Spent: </strong> <%= rep.FundingSpent %> <br>
       <strong>Funding Recovered: </strong> <%= rep.FundingProvided - rep.FundingSpent %> <br>
 
-      <strong> List of Administrators of Home and Community Care Services </strong> <br>
+      <strong> List of Administrators of Home and Community Care Services: </strong> <br>
       <ul>
-        <%= if (admin[0] === true) { %>
+        <% if (admin[0] === true) { %>
           <li> Direct delivery by the community </li>
-        <% } if (admin[1]] === true) { %>
+        <% } if (admin[1] === true) { %>
           <li> Third-party service delivery organization </li>
         <% } if (admin[2] === true) { %>
           <li> Tribal council </li>
@@ -62,9 +54,9 @@
       <strong>Number of Clients Served: </strong> <%= rep.NumberOfClientServed %> <br>
       <strong>Home Care Priorities: </strong> <%= rep.HomeCarePriorities %> <br>
 
-      <strong> List of uses for government funding </strong>
+      <strong> List of uses for government funding: </strong>
       <ul>
-        <%= if (use[0] === true) { %>
+        <% if (use[0] === true) { %>
           <li> Direct service for home or community care and/or palliative care (direct employed by the First Nations) </li>
         <% } if (use[1] === true) { %>
           <li> Direct services for home or community care and/or palliative and end-of-life care (provided by another organization) </li>
