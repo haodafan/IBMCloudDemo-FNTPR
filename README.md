@@ -12,7 +12,7 @@ The Home and Community Care Branch administers $7.5M to $15M in program allocati
 This cloud-based form provides another, more efficient way to report income, if implemented properly.
 
 
-# Development information
+# Application Development information
 ## Cloud
 This project is built for and depoloyed on the **IBM Cloud**, also known as **IBM Bluemix**. The application itself is a **Cloud Foundry Application** built on their **SDK for Node.js**. This application is connected to the **ClearDB Managed MySQL Database** service, also provided by the cloud.   
 
