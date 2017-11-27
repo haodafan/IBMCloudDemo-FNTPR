@@ -14,7 +14,7 @@ module.exports = {
         return callback(strData);
       }
     });
-  },
+  }/*,
 
   // THIS FUNCTION CALLS BACK A FUNCTION WITH AN ENTIRE ROW OF A TABLE WITH A SPECIFIC ID
   returnRow: function(table, id, callback) {
@@ -32,5 +32,5 @@ module.exports = {
       if (err) throw err;
       callback(err, data);
     });
-  }
+  } */
 }
