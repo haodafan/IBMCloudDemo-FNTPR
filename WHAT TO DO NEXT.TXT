@@ -6,4 +6,11 @@ NEXT STEPS:
 5. Modify the make-report.js and passport.js files for the new pages [x]
 
 6. Create a view-form page [x]
-7. Fill view-form page with data
+7. Fill view-form page with data [x]
+
+8. Make it possible to create multiple forms
+9. Add email verification
+
+IMMEDIATE STEPS:
+a) Change the option in profile to make a new form
+b) Add a middle step in view-report where you pick which form you want to view, with a button for each form

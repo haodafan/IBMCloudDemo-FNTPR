@@ -14,23 +14,73 @@ module.exports = {
         return callback(strData);
       }
     });
-  }/*,
-
-  // THIS FUNCTION CALLS BACK A FUNCTION WITH AN ENTIRE ROW OF A TABLE WITH A SPECIFIC ID
-  returnRow: function(table, id, callback) {
-    var strQuery = "SELECT * FROM " + table + " WHERE " + table + ".ID = " + id ";";
-    query.newQuery(strQuery, function(err, data) {
-      if (err) throw err;
-      callback(err, data);
-    });
   },
+  // THIS FUNCTION RETURNS A CALLBACK WITH ALL THE REQUIRED INFORMATION IN AN ARRAY
+  displayReport: function(userID, callback) {
+    // This is a several step process:
+    // 1. Get data for user profile
+    // 2. Get data for basic funding report
+    // 3. Get data for the list of funding administration
+    // 4. Get data for the list of funding uses
 
-  // THIS FUNCTION RETURNS ALL PRIMARY KEY IDs ASSOCIATED WITH A FOREIGN KEY ID
-  returnId: function(table, foreignIdName, foreignId, callback) {
-    var strQuery = "SELECT ID FROM " + table + " WHERE " + table + "." + foreignIDName + " = " + foreignId ";";
-    query.newQuery(strQuery, function(err, data) {
-      if (err) throw err;
-      callback(err, data);
+    // 1 - USER PROFILE
+    query.newQuery("SELECT * FROM user WHERE user.ID = " + userID + ";", function(err, dataUser) {
+      if (err) {
+        console.log(err);
+      }
+      else {
+        // 2 - BASIC FUNDING REPORT
+        query.newQuery("SELECT * FROM funding WHERE funding.UserId = " + userID + ";", function(err, dataFunding) {
+          if (err) {
+            console.log(err);
+          }
+          else {
+            //3 - Funding Administration
+            console.log("This funding table id: ");
+            console.log(dataFunding[0].ID);
+            var admin = [false, false, false, false, false];
+            query.newQuery("SELECT * FROM funding_administor WHERE FundingID = " + dataFunding[0].ID + " ORDER BY LKPFundingAdministorID;", function(err, dataAdmin) {
+              if (err) {
+                console.log(err);
+              }
+              else {
+                console.log("dataAdmin: ");
+                console.log(dataAdmin);
+                console.log("first element: ");
+                console.log(dataAdmin[0]);
+                console.log("third element: ");
+                console.log(dataAdmin[2]); //NOTE THIS WORKS BUT DATAITEM DOES NOT
+                for (var i = 0; i < dataAdmin.length; i++) {
+                  admin[(dataAdmin[i].LKPFundingAdministorID - 1)/10] = true;
+                }
+
+                console.log("admin: ");
+                console.log(admin);
+
+                //4 - Funding Use
+                var use = [false, false, false, false, false, false, false, false, false]
+                var comments;
+                query.newQuery("SELECT * FROM funding_use WHERE FundingID = " + dataFunding[0].ID + " ORDER BY LKPFundingUseID;", function(err, dataUse) {
+                  if (err) {
+                    console.log(err);
+                  }
+                  else {
+                    for (var i = 0; i < dataUse.length; i++) {
+                      use[(dataUse[i].LKPFundingUseID - 1) / 10] = true;
+                    }
+                    console.log("Use: ");
+                    console.log(use);
+
+                    var superArray = [dataUser[0], dataFunding[0], admin, use, comments]
+                    callback(superArray);
+                  }
+                });
+              }
+            });
+
+          }
+        });
+      }
     });
-  } */
+  }
 }

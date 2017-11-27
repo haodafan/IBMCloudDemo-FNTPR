@@ -171,78 +171,17 @@ module.exports = function(app, passport) {
     console.log("get /view-report")
     // TBH THIS COULD PROBABLY BE ITS OWN MODULE BUT FOR NOW I'LL LEAVE IT HERE
     //var display = require('../models/displayall.js');
-    var query = require('../models/query.js')
-    // This is a several step process:
-    // 1. Get data for user profile
-    // 2. Get data for basic funding report
-    // 3. Get data for the list of funding administration
-    // 4. Get data for the list of funding uses
+    var display = require('../models/displayall.js');
 
-    // 1 - USER PROFILE
-    query.newQuery("SELECT * FROM user WHERE user.ID = " + req.user.ID + ";", function(err, dataUser) {
-      if (err) {
-        console.log(err);
-      }
-      else {
-        // 2 - BASIC FUNDING REPORT
-        query.newQuery("SELECT * FROM funding WHERE funding.UserId = " + req.user.ID + ";", function(err, dataFunding) {
-          if (err) {
-            console.log(err);
-          }
-          else {
-            //3 - Funding Administration
-            console.log("This funding table id: ");
-            console.log(dataFunding[0].ID);
-            var admin = [false, false, false, false, false];
-            query.newQuery("SELECT * FROM funding_administor WHERE FundingID = " + dataFunding[0].ID + " ORDER BY LKPFundingAdministorID;", function(err, dataAdmin) {
-              if (err) {
-                console.log(err);
-              }
-              else {
-                console.log("dataAdmin: ");
-                console.log(dataAdmin);
-                console.log("first element: ");
-                console.log(dataAdmin[0]);
-                console.log("third element: ");
-                console.log(dataAdmin[2]); //NOTE THIS WORKS BUT DATAITEM DOES NOT
-                for (var i = 0; i < dataAdmin.length; i++) {
-                  admin[(dataAdmin[i].LKPFundingAdministorID - 1)/10] = true;
-                }
-
-                console.log("admin: ");
-                console.log(admin);
-
-                //4 - Funding Use
-                var use = [false, false, false, false, false, false, false, false, false]
-                var comments;
-                query.newQuery("SELECT * FROM funding_use WHERE FundingID = " + dataFunding[0].ID + " ORDER BY LKPFundingUseID;", function(err, dataUse) {
-                  if (err) {
-                    console.log(err);
-                  }
-                  else {
-                    for (var i = 0; i < dataUse.length; i++) {
-                      use[(dataUse[i].LKPFundingUseID - 1) / 10] = true;
-                    }
-                    console.log("Use: ");
-                    console.log(use);
-
-                    //NOW WE RENDER THE PAGE WITH ALLLLLLLL THE DATA
-                    res.render('view-report.ejs', {
-                      user : dataUser[0],
-                      rep : dataFunding[0],
-                      admin : admin,
-                      use : use,
-                      other: comments
-                    });
-                  }
-                });
-              }
-            });
-
-          }
-        });
-      }
-    });
+    display.displayReport(req.user.ID, function(arrayOfFive) {
+      res.render('view-report.ejs', {
+        user : arrayOfFive[0],
+        rep : arrayOfFive[1],
+        admin : arrayOfFive[2],
+        use : arrayOfFive[3],
+        other: arrayOfFive[4]
+      });
+    })
 
 
   });
