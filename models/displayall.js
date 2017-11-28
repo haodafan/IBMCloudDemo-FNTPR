@@ -16,7 +16,7 @@ module.exports = {
     });
   },
   // THIS FUNCTION RETURNS A CALLBACK WITH ALL THE REQUIRED INFORMATION IN AN ARRAY
-  displayReport: function(userID, callback) {
+  displayReport: function(req, callback) {
     // This is a several step process:
     // 1. Get data for user profile
     // 2. Get data for basic funding report
@@ -24,19 +24,31 @@ module.exports = {
     // 4. Get data for the list of funding uses
 
     // 1 - USER PROFILE
-    query.newQuery("SELECT * FROM user WHERE user.ID = " + userID + ";", function(err, dataUser) {
+    query.newQuery("SELECT * FROM user WHERE user.ID = " + req.user.ID + ";", function(err, dataUser) {
       if (err) {
         console.log(err);
       }
       else {
         // 2 - BASIC FUNDING REPORT
-        query.newQuery("SELECT * FROM funding WHERE funding.UserId = " + userID + ";", function(err, dataFunding) {
+        query.newQuery("SELECT * FROM funding WHERE funding.ID = " + req.query.thisFundingId + ";", function(err, dataFunding) {
           if (err) {
             console.log(err);
+          }
+          //This is put in place to ensure the wrong user doesn't have access to someone else's report
+          else if (dataFunding[0].UserId != req.user.ID) {
+            console.log(dataFunding[0].UserId);
+            console.log(req.user.ID);
+            console.log(dataFunding[0].UserId != req.user.ID);
+            console.log(" ------------------------------------------------- ");
+            console.log(" ----- HEY! YOU'RE NOT SUPPOSED TO BE HERE!! ----- ");
+            console.log(" ------------------------------------------------- ");
+            var blankArray = [];
+            callback(blankArray);
           }
           else {
             //3 - Funding Administration
             console.log("This funding table id: ");
+            console.log(req.query.thisFundingId);
             console.log(dataFunding[0].ID);
             var admin = [false, false, false, false, false];
             query.newQuery("SELECT * FROM funding_administor WHERE FundingID = " + dataFunding[0].ID + " ORDER BY LKPFundingAdministorID;", function(err, dataAdmin) {

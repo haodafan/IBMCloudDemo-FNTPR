@@ -45,9 +45,14 @@ module.exports = {
        approved = "1";
      }
 
+     var editedPriorities = reqBody.priorities.replace(/"/g, '&quot;');
+     editedPriorities = editedPriorities.replace(/'/g, '&rsquo;');
+
+     var editedComments = reqBody.comments.replace(/"/g, '&quot;');
+     editedComments = editedComments.replace(/'/g, '&rsquo;');
      queryFunding = "INSERT INTO funding (userID, Year, FundingProvided, FundingSpent, SourceFromHomeMaking, SourceFromFirstNation, NumberOfClientServed, HomeCarePriorities, Comments, Approved, SubmitDate) VALUES "
      + "(" + reqUser.ID + ", 2017, " + reqBody.fundProvided + ", " + reqBody.fundSpent + ", " + sourcefromhome
-     + ", " + sourcefromgov + ", " + reqBody.numClients + ", '" + reqBody.priorities + "', '" + reqBody.comments
+     + ", " + sourcefromgov + ", " + reqBody.numClients + ", '" + editedPriorities + "', '" + editedComments
      + "', " + approved + ", NOW());";
 
      //NOT TOO SURE WHAT TO PUT IN ANY OF THE OTHER TABLES T B H
@@ -187,7 +192,8 @@ function checkAndInsert(table, fieldName, field, fundingID, callback) {
         var insertQuery;
         //If it's the 'other'
         if (fieldName === "useOther") {
-          insertQuery = "INSERT INTO funding_use (FundingID, LKPFundingUseID, Comments) VALUES (" + fundingID + ", " + data1[0].ID + ", '" + field + "');";
+          editedField = field.replace(/'/g, '&rsquo;');
+          insertQuery = "INSERT INTO funding_use (FundingID, LKPFundingUseID, Comments) VALUES (" + fundingID + ", " + data1[0].ID + ", '" + editedField + "');";
         }
         else {
           insertQuery = "INSERT INTO funding_use (FundingID, LKPFundingUseID) VALUES (" + fundingID + ", " + data1[0].ID + ");";

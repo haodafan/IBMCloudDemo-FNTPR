@@ -52,7 +52,7 @@
       </ul> <br>
 
       <strong>Number of Clients Served: </strong> <%= rep.NumberOfClientServed %> <br>
-      <strong>Home Care Priorities: </strong> <%= rep.HomeCarePriorities %> <br>
+      <strong>Home Care Priorities: </strong> <%= rep.HomeCarePriorities.replace(/&quot;/g, "\"").replace(/&rsquo;/g, "\'") %> <br>
 
       <strong> List of uses for government funding: </strong>
       <ul>
@@ -78,7 +78,7 @@
         <% } %>
       </ul> <br>
 
-      <strong> Comments: </strong> <%= rep.Comments %> <br>
+      <strong> Comments: </strong> <%= rep.Comments.replace(/&quot;/g, "\"").replace(/&rsquo;/g, "\'") %> <br>
       <strong> Approved: </strong> <%= rep.Approved %> <br>
       <strong> Submit Date: </strong> <%= rep.SubmitDate %> <br>
 

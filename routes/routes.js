@@ -126,7 +126,8 @@ module.exports = function(app, passport) {
     //DEBUGGING
     console.log(req.user);
     var query = require('../models/query.js');
-    query.newQuery("SELECT id FROM funding f WHERE f.userId = " + req.user.ID, function(err, data) {
+    console.log("/GET PROFILE");
+    query.newQuery("SELECT ID FROM funding f WHERE f.userId = " + req.user.ID + " ORDER BY ID", function(err, data) {
       var isReport;
       if (data.length > 0) {
         isReport = true;
@@ -134,8 +135,14 @@ module.exports = function(app, passport) {
       else {
         isReport = false;
       }
+      for (var i = 0; i < data.length; i++) {
+        data[i]['link'] = "/view-report" + "?thisFundingId=" + data[i]['ID'];
+        console.log("Data[i][link]: ");
+        console.log(data[i]['link']);
+      }
       res.render('profile.ejs', {
         user : req.user, // get the user out of session and pass to template
+        data: data,
         isReport : isReport
       });
     })
@@ -173,16 +180,22 @@ module.exports = function(app, passport) {
     //var display = require('../models/displayall.js');
     var display = require('../models/displayall.js');
 
-    display.displayReport(req.user.ID, function(arrayOfFive) {
-      res.render('view-report.ejs', {
-        user : arrayOfFive[0],
-        rep : arrayOfFive[1],
-        admin : arrayOfFive[2],
-        use : arrayOfFive[3],
-        other: arrayOfFive[4]
-      });
-    })
-
+    display.displayReport(req, function(arrayOfFive) {
+      console.log("HERE IS THE RETURNED ARRAY");
+      console.log(arrayOfFive);
+      if (arrayOfFive.length === 0) {
+        res.redirect('/profile');
+      }
+      else {
+        res.render('view-report.ejs', {
+          user : arrayOfFive[0],
+          rep : arrayOfFive[1],
+          admin : arrayOfFive[2],
+          use : arrayOfFive[3],
+          other: arrayOfFive[4]
+        });
+      }
+    });
 
   });
 

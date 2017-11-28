@@ -38,10 +38,14 @@
           <div class = "well">
             <h3><span class = "fa fa-user"></span> Report</h3>
             <% if(isReport === true) { %>
-                  <a href="/view-report" class="btn btn-default"><span class="fa fa-user"></span> View Database </a>
-              <% } else { %>
-                  <a href="/make-report" class="btn btn-default"><span class="fa fa-user"></span> Make Report </a>
+              <h3> View Your Reports </h3>
+                <% for (var i = 0; i < data.length; i++) { %>
+                    <a href="<%= data[i].link %>" class="btn btn-default"><span class="fa fa-user"></span> Report ID: <%= data[i].ID %> </a> <br>
                 <% } %>
+                <br><br>
+              <% } %>
+
+                  <a href="/make-report" class="btn btn-default"><span class="fa fa-user"></span> Make a New Report </a>
           </div>
         </div>
 
