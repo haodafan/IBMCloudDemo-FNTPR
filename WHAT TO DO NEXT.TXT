@@ -8,9 +8,25 @@ NEXT STEPS:
 6. Create a view-form page [x]
 7. Fill view-form page with data [x]
 
-8. Make it possible to create multiple forms
+8. Make it possible to create multiple forms [x]
 9. Add email verification
 
 IMMEDIATE STEPS:
-a) Change the option in profile to make a new form
-b) Add a middle step in view-report where you pick which form you want to view, with a button for each form
+1- Add a middle step between signup.ejs and signup2.ejs
+2- Add a column for emails? [] Or move the existing column to the first page for now []
+2b-Add a column in user for whether or not the column is validated? [] And the validation token? []
+3- In that middle step, generate some token and email it to the respective user
+4- The user will click on the URL in his email to move on to the next step.
+
+
+Add email account verification according to STACK OVERFLOW
+
+What you're looking for is called "account verification" or "email verification". There are plenty of Node modules that can perform this, but the principle goes like this:
+
+1. Your User model should have an active attribute that is false by default
+2. When the user submits a valid signup form, create a new User (who's active will be false initially)
+3. Create a random hash and store it in your database with a reference to the User ID
+4. Send an email to the supplied email address with the hash as part of a link pointing back to a route on your server
+5. When a user clicks the link and hits your route, check for the hash passed in the URL
+6. If the hash exists in the database, get the related user and set their active property to true
+7. Delete the hash from the database, it is no longer needed

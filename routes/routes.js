@@ -57,6 +57,22 @@ module.exports = function(app, passport) {
     });
   });
 
+  app.get('/test-email', function(req, res) {
+    console.log("/test-email GET function invoked");
+    res.render('test-email.ejs', {data : "Click the Send Mail button to... well,  send the mail. Ya dip."});
+  });
+
+  app.post('/test-email', function(req, res) {
+    console.log("/test-email POST function invoked");
+    console.log("BODY: ");
+    console.log(req.body)
+
+    var mail = require('../models/sendMail.js');
+    mail.sendFromHaodasMail(req.body.sendEmail, req.body.sendSubject, req.body.sendContent, function () {
+      console.log("EMAIL SENT.");
+      res.render('test-email.ejs', {data: "Email message sent! Check your inbox!"});
+    });
+  });
 
   // =====================================
   // HOME PAGE (with login links) ========
@@ -127,7 +143,7 @@ module.exports = function(app, passport) {
     console.log(req.user);
     var query = require('../models/query.js');
     console.log("/GET PROFILE");
-    query.newQuery("SELECT ID FROM funding f WHERE f.userId = " + req.user.ID + " ORDER BY ID", function(err, data) {
+    query.newQuery("SELECT * FROM funding f WHERE f.userId = " + req.user.ID + " ORDER BY ID", function(err, data) {
       var isReport;
       if (data.length > 0) {
         isReport = true;
@@ -140,10 +156,20 @@ module.exports = function(app, passport) {
         console.log("Data[i][link]: ");
         console.log(data[i]['link']);
       }
+
+      //Prove if it's validated...
+      var isValidated;
+      if (req.user.fnName === 'blank') {
+        isValidated = false;
+      }
+      else {
+        isValidated = true;
+      }
       res.render('profile.ejs', {
         user : req.user, // get the user out of session and pass to template
         data: data,
-        isReport : isReport
+        isReport : isReport,
+        isValidated: isValidated
       });
     })
 

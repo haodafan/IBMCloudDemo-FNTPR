@@ -74,7 +74,7 @@
           <li> Travel </li>
         <% } if (use[8] === true) { %>
           <li> Other home and community care or palliative and end-of-life care priorities: <br>
-          <%= other %> </li>
+          <%= other.replace(/&quot;/g, "\"").replace(/&rsquo;/g, "\'") %> </li>
         <% } %>
       </ul> <br>
 

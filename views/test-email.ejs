@@ -1,0 +1,42 @@
+<!-- views/test.ejs -->
+<!doctype html>
+<html>
+<head>
+    <title>Emailing Test</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <style>
+        body        { padding-top:80px; word-wrap:break-word; }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="row">
+
+      <form action="/test-email" method="post">
+          <div class="form-group">
+              <label>Send to this address: </label>
+              <input type="text" class="form-control" name="sendEmail"/>
+          </div>
+          <div class="form-group">
+              <label>Subject: </label>
+              <input type="text" class="form-control" name="sendSubject"/>
+          </div>
+          <div class="form-group">
+              <label>Message: </label>
+              <textarea id = "sendContent" cols = "100" rows = "10" name = "sendContent"> </textarea>
+          </div>
+          <button type="submit" class="btn btn-warning btn-lg">Send Mail </button>
+
+    </div>
+    <!-- Information -->
+    <div class = "col-sm-12">
+      <div class = "well">
+          <p> <%= data %> </p><br>
+      </div>
+    </div>
+
+</div>
+</body>
+</html>

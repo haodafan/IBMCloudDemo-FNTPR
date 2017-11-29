@@ -21,6 +21,20 @@ module.exports = {
     //   console.log(bcryptcomparesync);
       return bcryptcomparesync;
     // });
+  },
+
+  // This will create an object with THREE VALUES
+  // {token, username, expiry}
+  generateTokenObject: function() {
+    return;
+  },
+
+  // This will return a boolean
+  validToken: function (tokenObject) {
+    return;
   }
 
+  // Wait how do u verify if a token has expired?
+  // Do I need to create another database table for tokens?
+  // Ugh how do I do this
 }

@@ -38,7 +38,7 @@ module.exports = {
           else if (dataFunding[0].UserId != req.user.ID) {
             console.log(dataFunding[0].UserId);
             console.log(req.user.ID);
-            console.log(dataFunding[0].UserId != req.user.ID);
+            console.log(dataFunding[0].UserId != req.user.ID); //If the user's credentials don't match up with the report's user ID credential
             console.log(" ------------------------------------------------- ");
             console.log(" ----- HEY! YOU'RE NOT SUPPOSED TO BE HERE!! ----- ");
             console.log(" ------------------------------------------------- ");
@@ -79,11 +79,14 @@ module.exports = {
                   else {
                     for (var i = 0; i < dataUse.length; i++) {
                       use[(dataUse[i].LKPFundingUseID - 1) / 10] = true;
+                      if (dataUse[i].LKPFundingUseID === 81) {
+                        comments = dataUse[i].Comments;
+                      }
                     }
                     console.log("Use: ");
                     console.log(use);
 
-                    var superArray = [dataUser[0], dataFunding[0], admin, use, comments]
+                    var superArray = [dataUser[0], dataFunding[0], admin, use, comments];
                     callback(superArray);
                   }
                 });

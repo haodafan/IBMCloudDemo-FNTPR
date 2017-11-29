@@ -23,13 +23,11 @@
         <div class="col-sm-6">
             <div class="well">
                 <h3><span class="fa fa-user"></span> User Information</h3>
-
                     <p>
                         <strong>id</strong>: <%= user.ID %><br>
                         <strong>user</strong>: <%= user.UserName %><br>
                         <strong>password</strong>: <%= user.password %>
                     </p>
-
             </div>
         </div>
 
@@ -44,8 +42,9 @@
                 <% } %>
                 <br><br>
               <% } %>
-
+              <% if (isValidated === true) { %>
                   <a href="/make-report" class="btn btn-default"><span class="fa fa-user"></span> Make a New Report </a>
+              <% } %>
           </div>
         </div>
 
