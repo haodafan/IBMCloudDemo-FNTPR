@@ -45,6 +45,7 @@ Note that an 'auth' table still exists, but it is an obsolete table that is no l
 - Simple signup/login/logout
 - Basic funding report form that saves to a database
 - A page to view your own report
+- The ability to make multiple reports under the same user
 
 ### Development features (to be removed in final release):
 - Make any query to any database
@@ -52,8 +53,7 @@ Note that an 'auth' table still exists, but it is an obsolete table that is no l
 
 ### Features to be completed:
 - A way to edit the contents of your report
-- The ability to make multiple reports under the same user
-- More advanced user authentication (like email confirmation)
+- More advanced user authentication (specifically email confirmation)
 
 ### Possible far-fetched future features:
 - Two types of users: first nations' users who create reports, and admin users who moniter them and have advanced priviledges
