@@ -13,12 +13,20 @@
 <div class="container">
 
     <div class="jumbotron text-center">
-        <h1><span class="fa fa-cloud"></span> Waiting for validation </h1>
+        <h1><span class="fa fa-cloud"></span> Validate your account!</h1>
         <h2> Waiting for Validation ... </h2>
 
-        <p>We have sent out an email. Please click on the link to validate your account. </p>
+        <p>We have sent out an email with your validation token. Please enter it here. Note that your token expires in 10 minutes! </p>
 
-        <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Send email again (doesn't work)</a>
+        <form action="/validate" method="post">
+            <div class="form-group">
+                <input type="text" class="form-control" name="userToken">
+            </div>
+
+            <button type="submit" class="btn btn-warning btn-lg">Validate</button>
+        </form>
+
+        <a href="/validate" class="btn btn-default"><span class="fa fa-user"></span> Send email again (this button doesn't work)</a>
     </div>
 
 </div>

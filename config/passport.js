@@ -101,7 +101,7 @@ module.exports = function(passport) {
           var hashedPassword = loginquery.generateHash(password);
 
           queryUser = "INSERT INTO user (UserName, FirstNationName, ChiefName, ContactName, PhoneNO, Email, CreateDate, password) "
-                    + " VALUES ('" + userName + "', '" + hashedPassword + "', 'blank', 'blank', 'blank', 'blank', NOW(), '" + hashedPassword + "');";
+                    + " VALUES ('" + userName + "', '" + hashedPassword + "', 'blank', 'blank', 'blank', '" + req.body.contactEmail + "', NOW(), '" + hashedPassword + "');";
 
 
 

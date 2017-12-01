@@ -108,10 +108,74 @@ module.exports = function(app, passport) {
   });
   // process the signup form
   app.post('/signup', passport.authenticate('local-signup', {
-      successRedirect : '/signup-next',
+      successRedirect : '/validate',
       failureRedirect : '/signup',
       failureFlash : true //allows flash messages
     }));
+
+  app.get('/validate', isLoggedIn, function(req, res) {
+    console.log("app get /validation-required");
+    var query = require('../models/query');
+    var loginquery = require('../models/loginquery.js');
+    var mail = require('../models/sendMail.js');
+
+    //Now, let's generate a token
+    loginquery.generateTokenObject(req.user.ID, 10, function(tokenObject) {
+      console.log(tokenObject);
+      query.newQuery("INSERT INTO token (UserId, token, expiry) VALUES (" + tokenObject.ID + ", '" + tokenObject.token + "', '" + tokenObject.expiry + "');", function(err, data) {
+        console.log("SUCCESS!");
+        console.log(data);
+      });
+      console.log("Let's asynchronously also send the email");
+      mail.sendFromHaodasMail(req.user.Email, "First Nations Online Income Reports: User Validation Required!",
+        "Please enter this token to validate yourself: " + tokenObject.token
+      );
+    });
+    res.render('tobevalidated.ejs');
+  });
+
+ // JUST V URSELF
+  app.post('/validate', isLoggedIn, function(req, res) {
+    console.log(req.body.userToken);
+    var query = require('../models/query');
+    query.newQuery("SELECT * FROM token WHERE token.token = '" + req.body.userToken + "';", function(err, tokenData) {
+      //First, check if it exists
+      if (tokenData.length != 1) {
+        //The user's token does not exist or has expired
+        console.log("TOKEN NOT FOUND!");
+        res.render('validationFailure.ejs', {});
+      }
+      else {
+        //Now, we check if this token is still valid...
+        var currentDate = new Date();
+        if (currentDate.getTime() > tokenData[0].expire) {
+          console.log("TOKEN EXPIRED!");
+          res.render('validationFailure.ejs', {});
+        }
+        else {
+          //EVERYTHING IS VALIDATED!
+          //First, let's update the valid column for this user
+          query.newQuery("UPDATE user SET validated = 1 WHERE ID = " + tokenData[0].userId + ";", function(err, data) {
+            if(err) {
+              console.log(err);
+            }
+            else {
+              //Second, let's get rid of the useless token
+              query.newQuery("DELETE FROM token WHERE token = '" + tokenData[0].token + "';", function(err, data) {
+                if (err) {
+                  console.log(err);
+                }
+                else {
+                  res.redirect('/signup-next');
+                }
+              });
+
+            }
+          });
+        }
+      }
+    });
+  });
 
 // process another signup form
   app.get('/signup-next', isLoggedIn, function(req, res) {

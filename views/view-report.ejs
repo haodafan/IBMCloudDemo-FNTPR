@@ -74,12 +74,17 @@
           <li> Travel </li>
         <% } if (use[8] === true) { %>
           <li> Other home and community care or palliative and end-of-life care priorities: <br>
+            <% if (other === "") { %>
+              <p> NONE </p>
+            <% } %>
           <%= other.replace(/&quot;/g, "\"").replace(/&rsquo;/g, "\'") %> </li>
         <% } %>
       </ul> <br>
 
       <strong> Comments: </strong> <%= rep.Comments.replace(/&quot;/g, "\"").replace(/&rsquo;/g, "\'") %> <br>
-      <strong> Approved: </strong> <%= rep.Approved %> <br>
+      <strong> Approved: </strong> <% if (rep.Approved === 1) { %>
+        <p> APPROVED! </p>
+      <%  } %> <br>
       <strong> Submit Date: </strong> <%= rep.SubmitDate %> <br>
 
     </div>

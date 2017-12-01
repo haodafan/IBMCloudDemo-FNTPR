@@ -9,14 +9,10 @@ NEXT STEPS:
 7. Fill view-form page with data [x]
 
 8. Make it possible to create multiple forms [x]
-9. Add email verification
+9. Add email verification []
 
 IMMEDIATE STEPS:
-1- Add a middle step between signup.ejs and signup2.ejs
-2- Add a column for emails? [] Or move the existing column to the first page for now []
-2b-Add a column in user for whether or not the column is validated? [] And the validation token? []
-3- In that middle step, generate some token and email it to the respective user
-4- The user will click on the URL in his email to move on to the next step.
+1. Make it so that users CANNOT access their accounts if they are not validated!
 
 
 Add email account verification according to STACK OVERFLOW
