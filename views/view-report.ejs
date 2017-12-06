@@ -25,7 +25,7 @@
         <strong>Contact Name: </strong> <%= user.ContactName %> <br>
         <strong>Phone Number: </strong> <%= user.PhoneNO %> <br>
         <strong>Email: </strong> <%= user.Email %> <br>
-        <strong>Date of Creation: </strong> <%= user.createDate %> <br>
+        <strong> Date of Creation: </strong> <%= user.CreateDate %> <br>
 
       </div>
     </div>
@@ -47,7 +47,11 @@
         <% } if (admin[3] === true) { %>
           <li> Local Health Integration Network </li>
         <% } if (admin[4] === true) { %>
-          <li> Other forms of administration </li>
+          <li> Other forms of administration: </li>
+          <% if (adminOther === "") { %>
+            <p> -- NONE -- </p>
+          <% } %>
+          <%= adminOther.replace(/&quot;/g, "\"").replace(/&rsquo;/g, "\'") %> </li>
         <% } %>
       </ul> <br>
 
@@ -74,10 +78,10 @@
           <li> Travel </li>
         <% } if (use[8] === true) { %>
           <li> Other home and community care or palliative and end-of-life care priorities: <br>
-            <% if (other === "") { %>
-              <p> NONE </p>
+            <% if (useOther === "") { %>
+              <p> -- NONE -- </p>
             <% } %>
-          <%= other.replace(/&quot;/g, "\"").replace(/&rsquo;/g, "\'") %> </li>
+          <%= useOther.replace(/&quot;/g, "\"").replace(/&rsquo;/g, "\'") %> </li>
         <% } %>
       </ul> <br>
 

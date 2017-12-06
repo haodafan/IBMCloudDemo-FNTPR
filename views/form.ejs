@@ -7,6 +7,8 @@
 
 </head>
 <body>
+
+	<div class = "container">
 	<h1>First Nations Report Spending</h1>
 	<form action = "/make-report" , method = "POST">
 	<fieldset>
@@ -25,10 +27,10 @@
 		and Long-Term Care will use this information to understand the service delivery network in your community.
 		<br>Check all that apply: </p>
 		<input type="checkbox" name="adminDirect"/> Direct delivery by the community<br>
-		<input type="checkbox" name="adminThirdParty" value="()thirdPartyDeliveryName()"/> Third-party service delivery organization (please include the name below)<br>
+		<input type="checkbox" name="adminThirdParty" /> Third-party service delivery organization (please include the name below)<br>
 		<input type="checkbox" name="adminCouncil" /> Tribal Council<br>
 		<input type="checkbox" name="adminLHIN" /> Local Health Integration Network<br>
-		<input type="checkbox" name="adminOther" value="()otherName()"/> Other (please specify below)<br>
+		<input type="checkbox" name="adminOther" /> Other (please specify below)<br>
 		<input type = "text" id = "adminSpecify" name = "adminSpecify" placeholder = "Enter if you checked third party delivery organization or other" style = "width: 85%"/>
 		<!-- I should probably think about the case where one checks both third party AND other :P -->
 	</fieldset> <br>
@@ -81,6 +83,7 @@
 	<br>
 	</form>
 <br><br>
+</div>
 <!-- I could give this a seperate html page, and use include to add it in, just to modularize everything better. For now I'll just keep it here-->
 	<div class = "info">
 		<h2><center> Information and notes: </center></h2>

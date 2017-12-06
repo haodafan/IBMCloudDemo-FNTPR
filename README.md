@@ -43,20 +43,26 @@ Note that an 'auth' table still exists, but it is an obsolete table that is no l
 # Current stage of development
 ### Completed features:
 - Simple signup/login/logout
+- Email validation upon registration
 - Basic funding report form that saves to a database
 - A page to view your own report
 - The ability to make multiple reports under the same user
 
 ### Development features (to be removed in final release):
 - Make any query to any database
-- delete all rows from both the user and funding tables
+- Delete all rows from both the user and funding tables
+- The fact that it shows your hashed password in your profile (that would be a bit of a security nightmare, I imagine)
 
 ### Features to be completed:
 - A way to edit the contents of your report
-- More advanced user authentication (specifically email confirmation)
 
 ### Possible far-fetched future features:
 - Two types of users: first nations' users who create reports, and admin users who moniter them and have advanced priviledges
 
-# Thanks for taking the time to look at my project!
+# Credit where credit is due...
+### Thanks to:
+- My manager, Sam Shen, for providing me with the guidance and resources needed for this project
+- My coworker, Linda Yang, for creating the database structure used in this project
+- You, for taking an interest on my project.
+
 :)

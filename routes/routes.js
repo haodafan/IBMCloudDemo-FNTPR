@@ -9,70 +9,6 @@
 // //module.exports = router;
 
 module.exports = function(app, passport) {
-  // ======================================
-  // DEBUGGING ROUTES =====================
-  // ======================================
-  app.get('/make-query', function(req, res) {
-    res.render('querydatabase.ejs', {data: "no data"});
-  });
-  app.post('/make-query', function(req, res) {
-    console.log("/make-query post route function INVOKER");
-
-    /*
-    console.log("FIRST LETS MAKE SURE THE TEXTAREA WORKS");
-    console.log(req.body.userQuery);
-
-    strQuery = JSON.stringify(req.body.userQuery);
-
-    res.render('querydatabase.ejs', {data: strQuery});
-
-     */
-    var query = require('../models/query');
-    console.log(req.body.userQuery);
-    query.newQuery(req.body.userQuery, function(err, result) {
-      if (err) {
-        console.log(err);
-      }
-      strResult = JSON.stringify(result);
-      res.render('querydatabase.ejs', {data: strResult});
-    });
-
-  });
-
-
-  app.get('/test', function(req, res) {
-    //COMMENT OUT AFTER DEBUGGING TABLES
-    res.render('test.ejs', {data: "no data"});
-  });
-
-  app.post('/test', function(req, res) {
-    console.log("/test post route function INVOKED");
-    //console.log(" =========================================== --- REQ --- =========================================== ");
-    //console.log(req);
-    //console.log(" =========================================== --- RES --- =========================================== ");
-    //console.log(res);
-    var displayAll = require('../models/displayall');
-    displayAll.returnTable(req.body.table, function(result) {
-      res.render('test.ejs', {data: result})
-    });
-  });
-
-  app.get('/test-email', function(req, res) {
-    console.log("/test-email GET function invoked");
-    res.render('test-email.ejs', {data : "Click the Send Mail button to... well,  send the mail. Ya dip."});
-  });
-
-  app.post('/test-email', function(req, res) {
-    console.log("/test-email POST function invoked");
-    console.log("BODY: ");
-    console.log(req.body)
-
-    var mail = require('../models/sendMail.js');
-    mail.sendFromHaodasMail(req.body.sendEmail, req.body.sendSubject, req.body.sendContent, function () {
-      console.log("EMAIL SENT.");
-      res.render('test-email.ejs', {data: "Email message sent! Check your inbox!"});
-    });
-  });
 
   // =====================================
   // HOME PAGE (with login links) ========
@@ -122,13 +58,13 @@ module.exports = function(app, passport) {
     //Now, let's generate a token
     loginquery.generateTokenObject(req.user.ID, 10, function(tokenObject) {
       console.log(tokenObject);
-      query.newQuery("INSERT INTO token (UserId, token, expiry) VALUES (" + tokenObject.ID + ", '" + tokenObject.token + "', '" + tokenObject.expiry + "');", function(err, data) {
+      query.newQuery("INSERT INTO token (UserId, TokenContent, Expiry) VALUES (" + tokenObject.ID + ", '" + tokenObject.token + "', '" + tokenObject.expiry + "');", function(err, data) {
         console.log("SUCCESS!");
         console.log(data);
       });
       console.log("Let's asynchronously also send the email");
       mail.sendFromHaodasMail(req.user.Email, "First Nations Online Income Reports: User Validation Required!",
-        "Please enter this token to validate yourself: " + tokenObject.token
+        "Please enter this token to https://demo-fntpr-2.mybluemix.net/validate validate yourself: " + tokenObject.token
       );
     });
     res.render('tobevalidated.ejs');
@@ -138,7 +74,7 @@ module.exports = function(app, passport) {
   app.post('/validate', isLoggedIn, function(req, res) {
     console.log(req.body.userToken);
     var query = require('../models/query');
-    query.newQuery("SELECT * FROM token WHERE token.token = '" + req.body.userToken + "';", function(err, tokenData) {
+    query.newQuery("SELECT * FROM token WHERE token.TokenContent = '" + req.body.userToken + "';", function(err, tokenData) {
       //First, check if it exists
       if (tokenData.length != 1) {
         //The user's token does not exist or has expired
@@ -148,20 +84,24 @@ module.exports = function(app, passport) {
       else {
         //Now, we check if this token is still valid...
         var currentDate = new Date();
-        if (currentDate.getTime() > tokenData[0].expire) {
+        console.log("CURRENT TIME: ");
+        console.log(currentDate);
+        console.log("EXPIRY TIME: ");
+        console.log(tokenData[0].expiry);
+        if (currentDate.getTime() > tokenData[0].expiry) {
           console.log("TOKEN EXPIRED!");
           res.render('validationFailure.ejs', {});
         }
         else {
           //EVERYTHING IS VALIDATED!
           //First, let's update the valid column for this user
-          query.newQuery("UPDATE user SET validated = 1 WHERE ID = " + tokenData[0].userId + ";", function(err, data) {
+          query.newQuery("UPDATE user SET validated = 1 WHERE ID = " + tokenData[0].UserId + ";", function(err, data) {
             if(err) {
               console.log(err);
             }
             else {
               //Second, let's get rid of the useless token
-              query.newQuery("DELETE FROM token WHERE token = '" + tokenData[0].token + "';", function(err, data) {
+              query.newQuery("DELETE FROM token WHERE TokenContent = '" + tokenData[0].TokenContent + "';", function(err, data) {
                 if (err) {
                   console.log(err);
                 }
@@ -270,49 +210,25 @@ module.exports = function(app, passport) {
     //var display = require('../models/displayall.js');
     var display = require('../models/displayall.js');
 
-    display.displayReport(req, function(arrayOfFive) {
+    display.displayReport(req, function(arrayOfSix) {
       console.log("HERE IS THE RETURNED ARRAY");
-      console.log(arrayOfFive);
-      if (arrayOfFive.length === 0) {
+      console.log(arrayOfSix);
+      if (arrayOfSix.length === 0) {
         res.redirect('/profile');
       }
       else {
         res.render('view-report.ejs', {
-          user : arrayOfFive[0],
-          rep : arrayOfFive[1],
-          admin : arrayOfFive[2],
-          use : arrayOfFive[3],
-          other: arrayOfFive[4]
+          user : arrayOfSix[0],
+          rep : arrayOfSix[1],
+          admin : arrayOfSix[2],
+          adminOther : arrayOfSix[3],
+          use : arrayOfSix[4],
+          useOther: arrayOfSix[5]
         });
       }
     });
 
   });
-
-  //THIS IS FOR DEBUGGING PURPOSES
-  //COMMENT OUT IN FINAL DEMO
-  /*
-  */
-  app.get('/delete-all-data-from-table-user', function(req, res) {
-    var query = require('../models/query.js');
-    query.newQuery("DELETE FROM user", function(req, res) {
-      if (err) {
-        console.log(err);
-      }
-      else {
-        console.log("DELETED.");
-        res.redirect('/');
-      }
-    });
-  });
-  app.get('/delete-all-data-from-table-funding', function(req, res) {
-    var query = require('../models/query.js');
-    query.newQuery("DELETE FROM funding", function(req, res) {
-      console.log("DELETED.");
-      res.redirect('/');
-    });
-  });
-  // DEBUGGING
 
 
   // =====================================
@@ -322,6 +238,116 @@ module.exports = function(app, passport) {
       req.logout();
       res.redirect('/');
   });
+
+
+
+
+
+
+
+  // ======================================
+  // DEBUGGING ROUTES =====================
+  // ======================================
+  app.get('/make-query', function(req, res) {
+    res.render('querydatabase.ejs', {data: "no data"});
+  });
+  app.post('/make-query', function(req, res) {
+    console.log("/make-query post route function INVOKER");
+
+    /*
+    console.log("FIRST LETS MAKE SURE THE TEXTAREA WORKS");
+    console.log(req.body.userQuery);
+
+    strQuery = JSON.stringify(req.body.userQuery);
+
+    res.render('querydatabase.ejs', {data: strQuery});
+
+     */
+    var query = require('../models/query');
+    console.log(req.body.userQuery);
+    query.newQuery(req.body.userQuery, function(err, result) {
+      if (err) {
+        console.log(err);
+      }
+      strResult = JSON.stringify(result);
+      res.render('querydatabase.ejs', {data: strResult});
+    });
+
+  });
+
+
+  app.get('/test', function(req, res) {
+    //COMMENT OUT AFTER DEBUGGING TABLES
+    res.render('test.ejs', {data: "no data"});
+  });
+
+  app.post('/test', function(req, res) {
+    console.log("/test post route function INVOKED");
+    //console.log(" =========================================== --- REQ --- =========================================== ");
+    //console.log(req);
+    //console.log(" =========================================== --- RES --- =========================================== ");
+    //console.log(res);
+    var displayAll = require('../models/displayall');
+    displayAll.returnTable(req.body.table, function(result) {
+      res.render('test.ejs', {data: result})
+    });
+  });
+
+  app.get('/test-email', function(req, res) {
+    console.log("/test-email GET function invoked");
+    res.render('test-email.ejs', {data : "Click the Send Mail button to... well,  send the mail. Ya dip."});
+  });
+
+  app.post('/test-email', function(req, res) {
+    console.log("/test-email POST function invoked");
+    console.log("BODY: ");
+    console.log(req.body)
+
+    var mail = require('../models/sendMail.js');
+    mail.sendFromHaodasMail(req.body.sendEmail, req.body.sendSubject, req.body.sendContent, function () {
+      console.log("EMAIL SENT.");
+      res.render('test-email.ejs', {data: "Email message sent! Check your inbox!"});
+    });
+  });
+
+    //THIS IS FOR DEBUGGING PURPOSES
+    //COMMENT OUT IN FINAL DEMO
+    /*
+    */
+    app.get('/delete-all-data-from-table-user', function(req, res) {
+      var query = require('../models/query.js');
+      query.newQuery("DELETE FROM user", function(req, res) {
+        if (err) {
+          console.log(err);
+        }
+        else {
+          console.log("DELETED.");
+          res.redirect('/');
+        }
+      });
+    });
+    app.get('/delete-all-data-from-table-funding', function(req, res) {
+      var query = require('../models/query.js');
+      query.newQuery("DELETE FROM funding", function(req, res) {
+        console.log("DELETED.");
+        res.redirect('/');
+      });
+    });
+    // DEBUGGING
+
+    app.get('/purge', function(req, res) {
+      console.log("I-I-It's the Purge, Morty! We're in The Purge!!");
+
+      //This will delete all expired tokens and unvalidated users without valid tokens!
+      var darkLogin = require('../models/loginquery.js');
+      darkLogin.purgeTokens(function () {
+        console.log("The tokens have been purged!");
+        darkLogin.purgeAccounts(function () {
+          console.log("The users have been purged!");
+          res.redirect('/');
+        });
+      });
+    });
 
 };
 

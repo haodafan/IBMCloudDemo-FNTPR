@@ -186,6 +186,13 @@ module.exports = function(passport) {
           if (loginquery.validPassword(userName, password, data)) {
             console.log("Correct password. Data: ");
             console.log(data);
+
+            //But if the account is not validated...
+            if (data[0].validated != 1) {
+              console.log("THIS ACCOUNT IS NOT VALID!");
+              return done(null, false, req.flash('loginMessage', 'Your account is not yet valid! Please validate at: https://demo-fntpr-2.mybluemix.net/validate'));
+            }
+
             //If all is well...
             return done(null, data[0]);
           }

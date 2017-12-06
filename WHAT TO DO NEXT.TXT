@@ -9,20 +9,8 @@ NEXT STEPS:
 7. Fill view-form page with data [x]
 
 8. Make it possible to create multiple forms [x]
-9. Add email verification []
+9. Add email verification [x]
+
+10. Beautify! Make it not ugly! Yeah!!! Front End = Fun End! :D
 
 IMMEDIATE STEPS:
-1. Make it so that users CANNOT access their accounts if they are not validated!
-
-
-Add email account verification according to STACK OVERFLOW
-
-What you're looking for is called "account verification" or "email verification". There are plenty of Node modules that can perform this, but the principle goes like this:
-
-1. Your User model should have an active attribute that is false by default
-2. When the user submits a valid signup form, create a new User (who's active will be false initially)
-3. Create a random hash and store it in your database with a reference to the User ID
-4. Send an email to the supplied email address with the hash as part of a link pointing back to a route on your server
-5. When a user clicks the link and hits your route, check for the hash passed in the URL
-6. If the hash exists in the database, get the related user and set their active property to true
-7. Delete the hash from the database, it is no longer needed

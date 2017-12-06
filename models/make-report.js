@@ -88,21 +88,23 @@ module.exports = {
                  checkAndInsert("funding_administor", "adminCouncil", reqBody.adminCouncil, data.insertId, function () {
                    checkAndInsert("funding_administor", "adminLHIN", reqBody.adminLHIN, data.insertId, function () {
                      checkAndInsert("funding_administor", "adminOther", reqBody.adminOther, data.insertId, function () {
+                       checkAndInsert("funding_administor", "adminSpecify", reqBody.adminSpecify, data.insertId, function () {
 
-                       // U S E   T A B L E
-                       checkAndInsert("funding_use", "useDirectFirstNations", reqBody.useDirectFirstNations, data.insertId, function () {
-                         checkAndInsert("funding_use", "useDirectOther", reqBody.useDirectOther, data.insertId, function () {
-                           checkAndInsert("funding_use", "useTraining", reqBody.useTraining, data.insertId, function () {
-                             checkAndInsert("funding_use", "useAdmin", reqBody.useAdmin, data.insertId, function () {
-                               checkAndInsert("funding_use", "useRecruit", reqBody.useRecruit, data.insertId, function () {
-                                 checkAndInsert("funding_use", "useSupplies", reqBody.useSupplies, data.insertId, function () {
-                                   checkAndInsert("funding_use", "useOfficeSupplies", reqBody.useOfficeSupplies, data.insertId, function () {
-                                     checkAndInsert("funding_use", "useTravel", reqBody.useTravel, data.insertId, function () {
-                                       checkAndInsert("funding_use", "useOther", reqBody.useOther, data.insertId, function () {
+                         // U S E   T A B L E
+                         checkAndInsert("funding_use", "useDirectFirstNations", reqBody.useDirectFirstNations, data.insertId, function () {
+                           checkAndInsert("funding_use", "useDirectOther", reqBody.useDirectOther, data.insertId, function () {
+                             checkAndInsert("funding_use", "useTraining", reqBody.useTraining, data.insertId, function () {
+                               checkAndInsert("funding_use", "useAdmin", reqBody.useAdmin, data.insertId, function () {
+                                 checkAndInsert("funding_use", "useRecruit", reqBody.useRecruit, data.insertId, function () {
+                                   checkAndInsert("funding_use", "useSupplies", reqBody.useSupplies, data.insertId, function () {
+                                     checkAndInsert("funding_use", "useOfficeSupplies", reqBody.useOfficeSupplies, data.insertId, function () {
+                                       checkAndInsert("funding_use", "useTravel", reqBody.useTravel, data.insertId, function () {
+                                         checkAndInsert("funding_use", "useOther", reqBody.useOther, data.insertId, function () {
 
-                                         // THE NIGHTMARE IS FINALLY OVER
-                                         callback();
+                                           // THE NIGHTMARE IS FINALLY OVER
+                                           callback();
 
+                                         });
                                        });
                                      });
                                    });
@@ -111,14 +113,13 @@ module.exports = {
                              });
                            });
                          });
-                       });
 
+                       });
                      });
                    });
                  });
                });
              });
-
 
            }
          });
@@ -148,8 +149,8 @@ module.exports = {
       */
       var queryUser;
       queryUser = "UPDATE user SET FirstNationName = '" + reqBody.fnName + "', ChiefName = '" + reqBody.chiefName + "', "
-                  + "ContactName = '" + reqBody.contactName + "', " + "PhoneNO = '" + reqBody.contactPhone + "', "
-                  + "Email = '" + reqBody.contactEmail + "' WHERE UserName = '" + reqUser.UserName + "';"; //UNFINISHED
+                  + "ContactName = '" + reqBody.contactName + "', " + "PhoneNO = '" + reqBody.contactPhone + "' "
+                  + " WHERE UserName = '" + reqUser.UserName + "';"; //UNFINISHED
 
       query.newQuery(queryUser, function(err, data) {
         console.log("USER QUERY UPDATE STARTED.");
@@ -170,14 +171,24 @@ module.exports = {
  */
 function checkAndInsert(table, fieldName, field, fundingID, callback) {
   console.log("CHECK AND INSERT FUNCTION CALLED.");
-  if (field === "on" || fieldName === "useOther") {
+  if (field === "on" || fieldName === "useOther" || fieldName === "adminSpecify") {
 
     console.log("FIELD " + fieldName + " IS ON");
+
     if (table === "funding_administor") {
       query.newQuery("SELECT ID FROM lkp_administor l WHERE l.Administor = '" + fieldName + "';", function(err, data1) {
         if (err) throw err;
         console.log(data1);
-        var insertQuery = "INSERT INTO funding_administor (FundingID, LKPFundingAdministorID) VALUES (" + fundingID + ", " + data1[0].ID + ");";
+        var insertQuery;
+
+        //If it's the 'other'
+        if (fieldName === "adminSpecify") {
+          editedField = field.replace(/'/g, '&rsquo;');
+          insertQuery = "INSERT INTO funding_administor (FundingID, LKPFundingAdministorID, Comments) VALUES (" + fundingID + ", " + data1[0].ID + ", '" + editedField + "');";
+        }
+        else {
+          var insertQuery = "INSERT INTO funding_administor (FundingID, LKPFundingAdministorID) VALUES (" + fundingID + ", " + data1[0].ID + ");";
+        }
         query.newQuery(insertQuery, function(err, data2) {
           console.log("INSERT SUCCESS.");
           console.log(data2);

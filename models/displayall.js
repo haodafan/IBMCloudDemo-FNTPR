@@ -62,8 +62,12 @@ module.exports = {
                 console.log(dataAdmin[0]);
                 console.log("third element: ");
                 console.log(dataAdmin[2]); //NOTE THIS WORKS BUT DATAITEM DOES NOT
+                var adminComments;
                 for (var i = 0; i < dataAdmin.length; i++) {
                   admin[(dataAdmin[i].LKPFundingAdministorID - 1)/10] = true;
+                  if (dataAdmin[i].LKPFundingAdministorID === 51) {
+                    adminComments = dataAdmin[i].Comments;
+                  }
                 }
 
                 console.log("admin: ");
@@ -80,13 +84,13 @@ module.exports = {
                     for (var i = 0; i < dataUse.length; i++) {
                       use[(dataUse[i].LKPFundingUseID - 1) / 10] = true;
                       if (dataUse[i].LKPFundingUseID === 81) {
-                        comments = dataUse[i].Comments;
+                        useComments = dataUse[i].Comments;
                       }
                     }
                     console.log("Use: ");
                     console.log(use);
 
-                    var superArray = [dataUser[0], dataFunding[0], admin, use, comments];
+                    var superArray = [dataUser[0], dataFunding[0], admin, adminComments, use, useComments];
                     callback(superArray);
                   }
                 });
