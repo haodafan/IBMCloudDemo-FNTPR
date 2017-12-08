@@ -39,16 +39,13 @@ module.exports = {
     var tokenObject = {token: hashToken, ID: userID, expiry: expiryDate.getTime()};
 
     //DO A QUICK PURGE
-    purgeTokens(purgeAccounts(function() {console.log("PURGE'D.");}));
-
-    callback(tokenObject);
+    module.exports.purgeTokens(function () {
+      module.exports.purgeAccounts(function() {
+        console.log("PURGE'D.");
+        callback(tokenObject);
+      });
+    });
   },
-
-// TEMPORARY PLS REMOVE LATER
-// CREATE TABLE token (ID INT(11) PRIMARY KEY, userId INT(11), token VARCHAR(256), expiry INT(11)); // TABLE CREATED!!!
-//
-
-
 
   // This will return a boolean
   isValidToken: function (tokenObject) {
@@ -95,13 +92,9 @@ module.exports = {
               callback();
             });
           }
-        })
+        });
 
       }
     });
   }
-
-  // Wait how do u verify if a token has expired?
-  // Do I need to create another database table for tokens?
-  // Ugh how do I do this
 }

@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class = "well">
-      <h3><span class = "fa fa-user"></span> This year's report </h3>
+      <h3><span class = "fa fa-user"></span> This quarter's report </h3>
 
       <strong>Funding Provided: </strong> <%= rep.FundingProvided %> <br>
       <strong>Funding Spent: </strong> <%= rep.FundingSpent %> <br>
@@ -47,7 +47,7 @@
         <% } if (admin[3] === true) { %>
           <li> Local Health Integration Network </li>
         <% } if (admin[4] === true) { %>
-          <li> Other forms of administration: </li>
+          <li> Other forms of administration:
           <% if (adminOther === "") { %>
             <p> -- NONE -- </p>
           <% } %>

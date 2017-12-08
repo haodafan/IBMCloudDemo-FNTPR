@@ -70,7 +70,7 @@ module.exports = function(app, passport) {
     res.render('tobevalidated.ejs');
   });
 
- // JUST V URSELF
+  // JUST V URSELF
   app.post('/validate', isLoggedIn, function(req, res) {
     console.log(req.body.userToken);
     var query = require('../models/query');
@@ -87,8 +87,8 @@ module.exports = function(app, passport) {
         console.log("CURRENT TIME: ");
         console.log(currentDate);
         console.log("EXPIRY TIME: ");
-        console.log(tokenData[0].expiry);
-        if (currentDate.getTime() > tokenData[0].expiry) {
+        console.log(tokenData[0].Expiry);
+        if (currentDate.getTime() > tokenData[0].Expiry) {
           console.log("TOKEN EXPIRED!");
           res.render('validationFailure.ejs', {});
         }
@@ -119,18 +119,18 @@ module.exports = function(app, passport) {
 
 // process another signup form
   app.get('/signup-next', isLoggedIn, function(req, res) {
-    console.log("app get /signup-next");
-    console.log(req.body);
-    console.log("=============================================================");
-    console.log(req.user);
-    console.log("RENDERING NEW PAGE");
+    //console.log("app get /signup-next");
+    //console.log(req.body);
+    //console.log("=============================================================");
+    //console.log(req.user);
+    //console.log("RENDERING NEW PAGE");
     res.render('signup2.ejs', {message: req.flash('signupMessage')});
   });
   app.post('/signup-next', isLoggedIn, function(req, res) {
-    console.log("app post /signup-next");
-    console.log(req.body);
-    console.log("=============================================================");
-    console.log(req.user);
+    //console.log("app post /signup-next");
+    //console.log(req.body);
+    //console.log("=============================================================");
+    //console.log(req.user);
     var make = require('../models/make-report.js');
     make.createUserProfile(req.body, req.user, function() {
       console.log("SUCCESS!");

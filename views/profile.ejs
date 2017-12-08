@@ -25,8 +25,11 @@
                 <h3><span class="fa fa-user"></span> User Information</h3>
                     <p>
                         <strong>id</strong>: <%= user.ID %><br>
-                        <strong>user</strong>: <%= user.UserName %><br>
-                        <strong>password</strong>: <%= user.password %>
+                        <strong>Username</strong>: <%= user.UserName %><br>
+                        <strong>Email</strong>: <%= user.Email %> <br>
+                        <!--
+                        <strong>password</strong>: <%//= user.password %>
+                        -->
                     </p>
             </div>
         </div>
@@ -36,9 +39,9 @@
           <div class = "well">
             <h3><span class = "fa fa-user"></span> Report</h3>
             <% if(isReport === true) { %>
-              <h3> View Your Reports </h3>
+              <h3> View Your Reports </h3> <br>
                 <% for (var i = 0; i < data.length; i++) { %>
-                    <a href="<%= data[i].link %>" class="btn btn-default"><span class="fa fa-user"></span> Report ID: <%= data[i].ID %> </a> <br>
+                    <a href="<%= data[i].link %>" class="btn btn-default"><span class="fa fa-user"></span> Report Date: <%= data[i].SubmitDate %> </a> <br>
                 <% } %>
                 <br><br>
               <% } %>

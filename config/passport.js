@@ -103,8 +103,6 @@ module.exports = function(passport) {
           queryUser = "INSERT INTO user (UserName, FirstNationName, ChiefName, ContactName, PhoneNO, Email, CreateDate, password) "
                     + " VALUES ('" + userName + "', '" + hashedPassword + "', 'blank', 'blank', 'blank', '" + req.body.contactEmail + "', NOW(), '" + hashedPassword + "');";
 
-
-
           query.newQuery(queryUser, function(err, data) {
             console.log("Insert function completed.");
             console.log("data variable contains: ");

@@ -27,7 +27,7 @@ The logic of this application is mainly done in Javascript. Tools used:
 ## Database
 **Database used: ClearDB Managed MySQL Database**
 ### Database Structure
-![Database structure](https://raw.githubusercontent.com/haodafan/IBMCloudDemo-FNTPR/master/bluemix.png "Database Structure")
+![Database structure](https://raw.githubusercontent.com/haodafan/IBMCloudDemo-FNTPR/master/diagram2.png "Database Structure")
 **Overview of Tables**
 - user: contains information about the user (information entered in the sign-up page). Note the password column is missing from this picture.
 - funding: contains the user's income report

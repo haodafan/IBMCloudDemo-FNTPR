@@ -50,7 +50,7 @@
 		<input type = "number" id = "numClients" name = "numClients" placeholder = "850" required/>
 		<br>
 		<label for "priorities">Please outline priorities for home and community care investment in the next five years</label> <br>
-		<input type = "text" id = "priorities" name = "priorities" placeholder = " " style = "width: 85%"/>
+		<textarea id = "priorities" name = "priorities" placeholder = " " style = "width: 85%"/>
 	</fieldset> <br>
 
 	<fieldset>
@@ -68,11 +68,11 @@
 		<input type="checkbox" name="useTravel"/> Travel<br>
 
 		<label for "useOther">Any other home and community care or palliative and end-of-care priorities: </label> <br>
-		<input type = "text" id = "useOther" name = "useOther" style = "width: 85%"/>
+		<textarea id = "useOther" name = "useOther" style = "width: 85%"/>
 	</fieldset> <br>
 	<fieldset>
 		<label for "comments">Please provide any other comments: </label> <br>
-		<input type = "text" id = "comments" name = "comments" style = "width: 85%" />
+		<textarea id = "comments" name = "comments" style = "width: 85%" />
 		<br>
 		<input type="checkbox" name="approval" required/> Check if the above information is approved by the Chief or the Chief's delegated authority
 		to approve reports to the ministry. <br>
@@ -85,7 +85,7 @@
 <br><br>
 </div>
 <!-- I could give this a seperate html page, and use include to add it in, just to modularize everything better. For now I'll just keep it here-->
-	<div class = "info">
+	<div class = "container info">
 		<h2><center> Information and notes: </center></h2>
 		<br>
 		<h4>Eligible areas of Expenditure</h4>
