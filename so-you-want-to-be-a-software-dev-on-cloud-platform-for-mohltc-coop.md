@@ -20,7 +20,7 @@ As a software development intern, you do not have access to administrative privi
 
 **Solution**
 
-To solve this problem, you will need to enlist the help of your manager. If the heavens smile upon you this co-op term, then the ministry might be able to get you administrative priviledges to your own computer upon your request; however, that is unlikely to happen, and it did not happen to me^[1]. More likely, after a lengthy request process, your manager will most likely have to give admin access to your computer to a trusted coworker.
+To solve this problem, you will need to enlist the help of your manager. If the heavens smile upon you this co-op term, then the ministry might be able to get you administrative priviledges to your own computer upon your request; however, that is unlikely to happen, and it did not happen to me <sup>[1]</sup>. More likely, after a lengthy request process, your manager will most likely have to give admin access to your computer to a trusted coworker.
 
 After he/she gains access to your computer, every time you need administrative priviledges, you will have to ask him/her to login and install or change things for you. It's a bit annoying and inefficient for everyone involved, so its best to first create a list of all the things you know you need an admin to install for you, and get them all ready before your coworker buddy comes to install it for you. That way, you can get the installation done in one (or a few) fell swoop(s), rather than have him/her come over a dozen times to install one thing.
 
@@ -29,7 +29,7 @@ After he/she gains access to your computer, every time you need administrative p
 ## 2.2 The OPS Firewall
 **Problem**
 
-The OPS firewall is probably the single most annoying obstacle you will encounter in your first few days or weeks (or if you're me, months) of work. The OPS firewall forbids you from accessing certain websites (such as YouTube), and denies you the freedom to download and access the web from the command line or through third party applications that aren't browsers (such as Maven). The Ontario Public Service's Great Firewall restricts you to such an extent, that it makes even Fang BinXing jealous ^[citation needed], and as cloud developers, asking us to work with this firewall is akin to asking a surgeon to perform surgery with his bare hands and blindfolded.
+The OPS firewall is probably the single most annoying obstacle you will encounter in your first few days or weeks (or if you're me, months) of work. The OPS firewall forbids you from accessing certain websites (such as YouTube), and denies you the freedom to download and access the web from the command line or through third party applications that aren't browsers (such as Maven). The Ontario Public Service's Great Firewall restricts you to such an extent, that it makes even Fang BinXing jealous <sup>[citation needed]</sup>, and as cloud developers, asking us to work with this firewall is akin to asking a surgeon to perform surgery with his bare hands and blindfolded.
 
 **Solution**
 
