@@ -38,13 +38,16 @@ module.exports = {
     var hashToken = bcrypt.hashSync(userID + currentDate.getTime() + "some_string-lmao", bcrypt.genSaltSync(1), null);
     var tokenObject = {token: hashToken, ID: userID, expiry: expiryDate.getTime()};
 
-    //DO A QUICK PURGE
+    //DO A QUICK PURGE (DOES NOT WORK)
+    /*
     module.exports.purgeTokens(function () {
       module.exports.purgeAccounts(function() {
         console.log("PURGE'D.");
         callback(tokenObject);
       });
     });
+    */
+    callback(tokenObject)
   },
 
   // This will return a boolean
@@ -66,7 +69,9 @@ module.exports = {
         db.newQuery(deleteDIS, function(err, data2) {
           console.log("TOKEN DELETED!!!");
           console.log(data2);
-          callback();
+          if (i == data.length - 1) {
+            callback();
+          }
         });
       }
     });
@@ -83,13 +88,16 @@ module.exports = {
       for (var i = 0; i < data.length; i++) {
         //Find out if each one has a token
         db.newQuery("SELECT * FROM token WHERE UserID = " + data[i].ID, function(err, data2) {
-          if(data2.length < 0) {
+          if(data2.length < 1) {
             //That means there's no token! DELETE DIS
             var deleteDIS = "DELETE FROM user WHERE ID = " + data[i].ID + ";";
             db.newQuery(deleteDIS, function(err, data3) {
               console.log("USER DELETED!!!");
               console.log(data2);
-              callback();
+
+              if (i == data.length - 1) {
+                callback();
+              }
             });
           }
         });

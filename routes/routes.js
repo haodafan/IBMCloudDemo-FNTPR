@@ -50,6 +50,8 @@ module.exports = function(app, passport) {
     }));
 
   app.get('/validate', isLoggedIn, function(req, res) {
+
+
     console.log("app get /validation-required");
     var query = require('../models/query');
     var loginquery = require('../models/loginquery.js');
@@ -64,17 +66,19 @@ module.exports = function(app, passport) {
       });
       console.log("Let's asynchronously also send the email");
       mail.sendFromHaodasMail(req.user.Email, "First Nations Online Income Reports: User Validation Required!",
-        "Please enter this token to https://demo-fntpr-2.mybluemix.net/validate validate yourself: " + tokenObject.token
+        "Please click on the following link: \n https://demo-fntpr-2.mybluemix.net/validate-now?tok=" + tokenObject.token + " to validate yourself: "
       );
     });
     res.render('tobevalidated.ejs');
+
+
   });
 
   // JUST V URSELF
-  app.post('/validate', isLoggedIn, function(req, res) {
-    console.log(req.body.userToken);
+  app.get('/validate-now', function(req, res) {
+    console.log(req.query.tok);
     var query = require('../models/query');
-    query.newQuery("SELECT * FROM token WHERE token.TokenContent = '" + req.body.userToken + "';", function(err, tokenData) {
+    query.newQuery("SELECT * FROM token WHERE token.TokenContent = '" + req.query.tok + "';", function(err, tokenData) {
       //First, check if it exists
       if (tokenData.length != 1) {
         //The user's token does not exist or has expired
@@ -106,7 +110,7 @@ module.exports = function(app, passport) {
                   console.log(err);
                 }
                 else {
-                  res.redirect('/signup-next');
+                  res.redirect('/login');
                 }
               });
 
@@ -116,6 +120,8 @@ module.exports = function(app, passport) {
       }
     });
   });
+
+/*
 
 // process another signup form
   app.get('/signup-next', isLoggedIn, function(req, res) {
@@ -137,6 +143,8 @@ module.exports = function(app, passport) {
       res.redirect('/profile');
     });
   });
+
+  */
 
   // =====================================
   // PROFILE =============================

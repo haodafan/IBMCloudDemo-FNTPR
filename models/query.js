@@ -10,7 +10,8 @@ module.exports = {
   newQuery: function(query, callback) {
     // THIS NEW FUNCTION SHOULD THEORETICALLY STOP ANY 'SERVER CLOSED CONNECTION' ERRORS
     connectionPool.getConnection(function(err, connection) {
-      if (err) throw err;
+      if (err) return callback(err);
+
       console.log("NEW QUERY FUNCTION CALLED.");
       console.log("QUERY: ");
       console.log(query);

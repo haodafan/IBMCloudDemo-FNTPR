@@ -100,8 +100,9 @@ module.exports = function(passport) {
           var queryUser;
           var hashedPassword = loginquery.generateHash(password);
 
-          queryUser = "INSERT INTO user (UserName, FirstNationName, ChiefName, ContactName, PhoneNO, Email, CreateDate, password) "
-                    + " VALUES ('" + userName + "', '" + hashedPassword + "', 'blank', 'blank', 'blank', '" + req.body.contactEmail + "', NOW(), '" + hashedPassword + "');";
+          queryUser = "INSERT INTO user (UserName, FirstNationName, ChiefName, ContactName, PhoneNO, Email, CreateDate, password, validated) "
+                    + " VALUES ('" + userName + "', '" +  req.body.fnName + "', '" + req.body.chiefName + "', '" + req.body.contactName
+                    + "', '" + req.body.contactPhone + "', '" + req.body.contactEmail + "', NOW(), '" + hashedPassword + "', 0);";
 
           query.newQuery(queryUser, function(err, data) {
             console.log("Insert function completed.");

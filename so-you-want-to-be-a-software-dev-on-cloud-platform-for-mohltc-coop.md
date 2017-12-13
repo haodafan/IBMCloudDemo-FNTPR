@@ -5,9 +5,13 @@
 **December, 2017**
 
 # 1.0 INTRODUCTION
-Welcome to the machine. You are a small cog in the infinitely large and infinitely inefficient engine that is the Ontario Government. To survive, you cannot simply follow the mindless herd. You must rise above the herd, define your own identity, and become your own individual. Become the Ubermensch.
+Obligatory introductory hook:
 
-Since I know you have already decided to follow the Nietzschean philosophy of self-determination, why should you even bother reading this document? Well, as a past intern, I have experienced a set of issues and difficulties that have gotten in the way of my productivity on the cloud, with no real mentoring or guidance to help me along. This could change in the future, because as of the writing of this document, the cloud is a very new thing for our department, so nobody really knows how to use it. So in order for you to not be stuck on all the things I was stuck on, I have been voluntold to document all the difficulties I had and the things that I have learned while creating my main project, the First Nations' Digital Income Reporting thing.
+*Welcome to the machine. You are a small cog in the infinitely large and infinitely inefficient engine that is the Ontario Government. To survive, you cannot simply follow the mindless herd. You must rise above the herd, define your own identity, and become your own individual. Become the Ubermensch.*
+
+*Awaken my child. Embrace the glory that is your birthright. Know that I am the Overmind; the eternal will of the Swarm, and you have been created to serve me.*
+
+Since I know you have already decided to follow the Nietzschean philosophy of self-determination, why should you even bother reading this document? Well, as a past intern, I have experienced a set of issues and difficulties that have gotten in the way of my productivity on the cloud, with no real training or mentoring to help me along. This could change in the future, because as of the writing of this document, the cloud is a very new thing for our department, so nobody really knows how to use it. So in order for you to not be stuck on all the things I was stuck on, I have been voluntold to document all the difficulties I had and the things that I have learned while creating my main project, the First Nations' Digital Income Reporting thing.
 
 Anyways, on to cloud development and (hopefully) making your life easier.
 
@@ -20,16 +24,16 @@ As a software development intern, you do not have access to administrative privi
 
 **Solution**
 
-To solve this problem, you will need to enlist the help of your manager. If the heavens smile upon you this co-op term, then the ministry might be able to get you administrative priviledges to your own computer upon your request; however, that is unlikely to happen, and it did not happen to me <sup>[1]</sup>. More likely, after a lengthy request process, your manager will most likely have to give admin access to your computer to a trusted coworker.
+To solve this problem, you will need to enlist the help of your manager. If the heavens smile upon you this co-op term, then the ministry might be able to get you administrative priviledges to your own computer upon your request; however, that is unlikely to happen, and it did not happen to me<sup>[1]</sup>. More likely, after a lengthy request process, your manager will most likely have to give admin access to your computer to a trusted coworker.
 
 After he/she gains access to your computer, every time you need administrative priviledges, you will have to ask him/her to login and install or change things for you. It's a bit annoying and inefficient for everyone involved, so its best to first create a list of all the things you know you need an admin to install for you, and get them all ready before your coworker buddy comes to install it for you. That way, you can get the installation done in one (or a few) fell swoop(s), rather than have him/her come over a dozen times to install one thing.
 
-[1] Apparently in the past, software development interns were granted administrative access to their computers, but this priviledge was recently removed for security reasons (I think there was some virus going around?). Anyway, thanks alot that one intern who probably downloaded a virus, I blame this on you.
+[1] Apparently in the past, software development interns were granted administrative access to their computers, but this priviledge was recently removed for security reasons (I think there was some virus going around?). Anyway, thanks a lot that one intern who probably downloaded a virus, I blame this on you.
 
 ## 2.2 The OPS Firewall
 **Problem**
 
-The OPS firewall is probably the single most annoying obstacle you will encounter in your first few days or weeks (or if you're me, months) of work. The OPS firewall forbids you from accessing certain websites (such as YouTube), and denies you the freedom to download and access the web from the command line or through third party applications that aren't browsers (such as Maven). The Ontario Public Service's Great Firewall restricts you to such an extent, that it makes even Fang BinXing jealous <sup>[citation needed]</sup>, and as cloud developers, asking us to work with this firewall is akin to asking a surgeon to perform surgery with his bare hands and blindfolded.
+The OPS firewall is probably the single most annoying obstacle you will encounter in your first few days or weeks (or if you're me, months) of work. The OPS firewall forbids you from accessing certain websites (such as YouTube), and denies you the freedom to download and access the web from the command line or through third party applications that aren't browsers (such as Maven). The Ontario Public Service's Great Firewall restricts you to such an extent, that it makes even Fang BinXing jealous<sup>[citation needed]</sup> , and as cloud developers, asking us to work with this firewall is akin to asking a surgeon to perform surgery with his bare hands and blindfolded.
 
 **Solution**
 
@@ -80,9 +84,7 @@ To accomplish this is very simple. You'll simply need to run JMeter through the 
 2. Shift + Right Click on the 'bin' folder
 3. Click 'Open command window here'. It should open up command prompt at that location.
 4. Enter the following command:
-```
-jmeter.bat -H 204.40.130.129 -P 3128 -N localhost,127.0.0.1 -u -a
-```
+``` jmeter.bat -H 204.40.130.129 -P 3128 -N localhost,127.0.0.1 -u -a ```
 
 With that, JMeter should be running through a proxy server and able to load test any website you desire!
 
@@ -108,7 +110,9 @@ Now, you should be able to run the Bluemix CLI without any dehabilitating firewa
 ### 2.2.4 Setting up a proxy for Node and NPM
 
 If you want to get in on the newest ~~fads~~ ~~trends~~ ~~bandwagons~~ technologies in the web development world, you'll need to use Node.JS, and its equally important partner, Node Package Manager (npm). Unfortunately, it uses a command line interface, and like everything else with command lines, the firewall hates it with a passion. Once again, let's set a proxy. Open up the command line, and type the following two commands:
+
 `npm config set proxy http://204.40.130.129:3128`
+
 `npm config set https-proxy https://204.40.130.129:3128`
 
 With these set up, you should be able to run npm commands liberally.
@@ -118,6 +122,7 @@ With these set up, you should be able to run npm commands liberally.
 In order to use the git command line interface (very useful if you use github or any kind of git-related version control system), you'll need to set a proxy in a very similar fashion to the proxy set for node and npm. Simply enter the following commands:
 
 `git config --global http.proxy http://204.40.130.129:3128`
+
 `git config --global https.proxy https://204.40.130.129:3128`
 
 Now clone and push and pull and merge at will! You're free I say! Free!
@@ -166,7 +171,40 @@ Similarily and also unfortunately, I also could not find a way to make this work
 
 **__If you come up with a better solution, then by all means, go ahead and use that. This is just what I have learned worked best for me at the time (with the information I possessed).__**
 
-## 2.4 UNSOLVED ISSUES
+## 2.4 Debugging on the Cloud
+
+As someone who has never really done work with backend programming before this job, the thing I initially found most frustrating about work on the cloud is debugging. Whenever a portion of my program fails, it would give me an
+
+`Error 500: Internal Server Error`.
+
+Okay... not very helpful, let me just ctrl+shift+I ...
+
+```Error 500 Internal Server Error```
+
+What the ???? How am I supposed to know what's wrong if this is all the info you give me??? ARUGHHHGHHH
+
+I know. I'll just write some console.logs to tell me which parts work and which parts don't. Now, when I go into the browser console...
+
+```Error 500 Internal Server Error```
+
+WHAT??? (╯°□°）╯︵ ┻━┻
+
+So... what now?
+
+ ┬─━┬﻿ ノ(゜-゜ノ)
+
+Turns out, when running any back-end server application, the app will not print its logs or statuses in the browser console. The **browser console** only deals with **client side code**. **Server side logs** are handled by the back-end server console, which in this case, is your **IBM Cloud server**.
+
+You have two ways of retrieving the logs. The first way, the one that I don't like, is through IBM Cloud's web UI, where you can view your logs from there. But IBM's browser-based UI is very slow and the retrieved logs are both hard to read and slow to load.
+
+The better way (in my opinion), is to use the following command in your Command Line Interface:
+
+`cf logs --recent applicationName`
+
+with applicationName being whatever name you gave to your application (in the case of my program, it was demo-fntpr-2). To retrieve logs, I prefer using git bash instead of command prompt, because the font is both smaller and easier to read.
+
+
+## 2.5 UNSOLVED ISSUES
 
 ### 2.4.1 'Proxy Authentication Required'
 
@@ -188,7 +226,7 @@ I started off my project with [this simple tutorial](https://console.bluemix.net
 This tutorial essentially taught me how to setup my development environment, and push a sample application onto Bluemix.
 
 ### 3.1.1 manifest.yml
-The manifest.yml file contains the metadata for your project (like your project name, your project URL, etc). This file is important, as it tells the IBM Cloud how to run your project.
+The manifest.yml file contains the metadata for your project (like your project name, your project URL, the services that are used, etc). This file is important, as it tells the IBM Cloud how to run your project.
 
 ## 3.2 Using ClearDB (MySQL) with your Node application and the Cloud.
 
@@ -198,6 +236,7 @@ To create a ClearDB service for IBM Bluemix, simply go to the Catalog, and scrol
 
 FFFFFFFFFFFFFFFFFFFFFFFFFFFFINISH THISSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
 
+(remember to include connection pool)
 
 ## 3.3 Querying with ClearDB and MySQL
 
@@ -232,45 +271,34 @@ I would replace it with ...
 
 ```javascript
 // Use a query to find a user whose email is the same as the forms email
+query.newQuery("SELECT Email FROM user u WHERE u.Email LIKE '" + email + "';", function(error, user) {
+	...
+});
+```
+
+Note, I later changed it again to what it is now ...
+
+```javascript
+// Use a query to find a user whose email is the same as the forms email
 query.newQuery("SELECT UserName FROM user u WHERE u.UserName LIKE '" + userName + "';", function(error, data) {
 	...
 });
 ```
 
+
 Another important difference, is that I used two-factor authentication in my version, but that is a feature I added much later, and I will get to explaining that portion later as well.
 
 ## 3.5 Sending emails and tokens
 
-## 3.6 Debugging on the Cloud
+NOT DONE!!! D:
 
-As someone who has never really done work with backend programming before this job, the thing I initially found most frustrating about work on the cloud is debugging. Whenever a portion of my program fails, it would give me an
+## 3.6 Things I'm too dumb to figure out
 
-`Error: 500 Internal Server Error`.
+The main thing I have yet to implement successfully is a way to **get rid of unvalidated users** and their **expired tokens**. If you look in the file 'loginquery.js', you'll find a pair of purge functions. Neither of these really function properly. If you are continuing to work on this project, and can solve the token problem, then that would be **awesome**.
 
-Okay... not very helpful, let me just ctrl+shift+I ...
-
-```Error 500 Internal Server Error```
-
-What the ???? How am I supposed to know what's wrong if this is all the info you give me??? ARUGHHHGHHH
-
-I know. I'll just write some console.logs to tell me which parts work and which parts don't. Now, when I go into the browser console...
-
-```Error 500 Internal Server Error```
-
-WHAT??? (table_flip.png)
-
-So... what now?
-
-Turns out, when running any back-end server application, the app will not print its logs or statuses in the browser console. The **browser console** only deals with **client side code**. **Server side logs** are handled by the back-end server console, which in this case, is your **IBM Cloud server**.
-
-You have two ways of retrieving the logs. The first way, the one that I don't like, is through IBM Cloud's web UI, where you can view your logs from there. But IBM's browser-based UI is very slow and the retrieved logs are both hard to read and slow to load.
-
-The better way (in my opinion), is to use the following command in your Command Line Interface:
-`cf logs --recent applicationName`
-with applicationName being whatever name you gave to your application (in the case of my program, it was demo-fntpr-2). To retrieve logs, I prefer using git bash instead of command prompt, because the font is both smaller and easier to read.
 
 # 4.0 Conclusion
-The Die is Cast. The Rubicon has been crossed. From here until 4-8 months from now, there's no going back. Mother, you will either see me the next Pontifex Maximus, or go into exile. But I believe in you, young co-op student. You will come, see, and conquer every challenge you face at this workplace, and leave as undisputed master of Rome, and by extension, the World.
+*The Die is Cast. The Rubicon has been crossed. Mother, you will either see me the next Pontifex Maximus, or go into exile.* From here until 4-8 months from now, there's no going back.  But I believe in you, young co-op student. You will veni, vidi, and then vici every challenge you face at this workplace, and emerge as undisputed master of Rome, and by extension, the World.
 
 Hopefully this document will ~~secure my legacy~~ help you with your job here.
 
