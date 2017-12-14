@@ -7,7 +7,7 @@
 # 1.0 INTRODUCTION
 Obligatory introductory hook:
 
-*Welcome to the machine. You are a small cog in the infinitely large and infinitely inefficient engine that is the Ontario Government. To survive, you cannot simply follow the mindless herd. You must rise above the herd, define your own identity, and become your own individual. Become the Ubermensch.*
+*Welcome to the machine. You are a small cog in the enormous all-encompassing engine that is the Ontario Government. To survive, you cannot simply follow the mindless herd. You must rise above the herd, define your own identity, and become your own individual. Become the Ubermensch.*
 
 *Awaken my child. Embrace the glory that is your birthright. Know that I am the Overmind; the eternal will of the Swarm, and you have been created to serve me.*
 
@@ -409,15 +409,64 @@ Another important difference, is that I used two-factor authentication in my ver
 
 ## 3.4 Sending emails and tokens
 
-NOT DONE!!! D:
+The email token validation part is the last feature I added.
+
+The idea is that after the user 'signs up', an email with a link is sent to their inputted email. Before he/she can access their account, they must click on the email link to validate their account.
+
+I did THREE major things for this.
+
+First is, using my '/make-query' online, I query'd a new table called 'token', with columns for identifying the associated user, the token itself, and the expiry date (which is in [Unix Time](https://en.wikipedia.org/wiki/Unix_time)).
+
+To create the token, I used the bcrypt function in my 'loginquery.js', the same one used to encrypt passwords (Now that I think about it, maybe that's not very secure??? :S ).
+
+To send the email, I used a new node package, called 'nodemailer'.
+
+```javascript
+var nodeMailer = require('nodemailer'); //Import the module
+
+//Sets up the mailing service (I created a new account for this)
+var smtpTransport = nodeMailer.createTransport({
+  service: "gmail", //hostname
+  host: "smtp.gmail.com",
+  auth: {
+    user: "haodasdemo@gmail.com",
+    pass: "godisdeadgodremainsdeadandwehavekilledhim"
+  }
+})
+
+//Here is the function for sending mail:
+var mailConfig = {
+	to : "target@email.com", //Whatever your target email is
+	subject : "subject text",
+	text : "whatever the content of your email is"
+}
+smtpTransport.sendMail(mailConfig, function(err, response) {
+	if (err) {
+		console.log(err)
+	}
+	else {
+		//whatever
+	}
+});
+
+```
+
+**NOTE:** If you don't want to send from haodasdemo@gmail.com, you can use a different email source by configuring the data in `nodeMailer.createTransport({ data ... })`.
 
 ## 3.5 Things I'm too dumb to figure out
 
 The main thing I have yet to implement successfully is a way to **get rid of unvalidated users** and their **expired tokens**. If you look in the file 'loginquery.js', you'll find a pair of purge functions. Neither of these really function properly. If you are continuing to work on this project, and can solve the token problem, then that would be **awesome**.
 
+## 3.6 Other areas of improvement
+
+There are a few other things I would've liked to improve on my program.
+1. My token authentication is not modularized like the rest of my code! The logic for the token verification and stuff is in **'routes.js'**, which is **really bad form**. Better form would be to make a new javascript file in '/models/' and import it to routes.
+2. My program is blank and ugly! I did not spend much effort at all in the front end UI design.
+3. Although passport is great and all, I think (correct me if I'm wrong) the IBM Cloud has its own service for authentication, which is much more secure than anything my naive lil brain can think up.
+4. Embedded JavaScript (ejs) is an okay templating system for the front end views, but I kind of wish I used something a little fancier, like React or Angular.
 
 # 4.0 Conclusion
-*The Die is Cast. The Rubicon has been crossed. Mother, you will either see me the next Pontifex Maximus, or go into exile.* From here until 4-8 months from now, there's no going back.  But I believe in you, young co-op student. You will veni, vidi, and then vici every challenge you face at this workplace, and emerge as undisputed master of Rome, and by extension, the World.
+*The Die is Cast. The Rubicon has been crossed. Mother, you will either see me the next Pontifex Maximus, or go into exile.* From here until 4-8 months from now, there's no going back.  But I believe in you, young co-op student. You will *veni, vidi, and then vici* every challenge you face at this workplace, and emerge as undisputed master of Rome, and by extension, the World.
 
 Hopefully this document will ~~secure my legacy~~ help you with your job here.
 
