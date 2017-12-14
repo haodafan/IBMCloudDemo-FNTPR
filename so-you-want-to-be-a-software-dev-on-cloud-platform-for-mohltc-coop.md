@@ -216,7 +216,13 @@ The problem usually goes away after simply waiting 5-10 minutes, although someti
 
 # 3.0 MY CLOUD PROJECT AND HOW I DEVELOPED IT
 
-I spent around 3 weeks developing this project, meant to be a proof-of-concept prototype application for the IBM Cloud. You can find its github [here](http://github.com/haodafan/IBMCloudDemo-FNTPR). The github shows the ReadMe.MD file, which contains some basic information about my project.
+I spent around a month developing this project, meant to be a proof-of-concept prototype application for the IBM Cloud. You can find its github [here](http://github.com/haodafan/IBMCloudDemo-FNTPR). The github shows the ReadMe.MD file, which contains some basic information about my project.
+
+To DOWNLOAD the source files for my project, simply open command prompt in the correct folder, and type the command:
+
+`git clone https://github.com/haodafan/IBMCloudDemo-FNTPR.git`
+
+(if you're doing this at work, make sure to have the proxy setup! See 2.2.5)
 
 My project has several components, which can be considered mini-projects. Since I don't trust myself to be able to code in an easily readable and understandable format, I will go through my development process of each part of those components.
 
@@ -232,15 +238,128 @@ The manifest.yml file contains the metadata for your project (like your project 
 
 The sample application uses Cloudant, which is a NoSQL database. Now, even though NoSQL databases like Cloudant and MongoDB are currently all the rage, the government and many large corporations prefer to use good old SQL. So, I'll give you a lil lesson on how to use ClearDB, a free MySQL database service, for your Node application.
 
-To create a ClearDB service for IBM Bluemix, simply go to the Catalog, and scroll down to find 'ClearDB for MySQL'.
+1. To create a ClearDB service for IBM Bluemix, simply go to the Catalog, and scroll down to the 'Data Analytics' section to find 'ClearDB for MySQL'. Make sure you're logged into your account and in the 'console.bluemix.net' part of IBM's website. Since it's a third-party application, it only shows up there.
+2. Give your service a name (Mine was named 'ClearDB_LindaTest').
+3. Click on the first pricing plan, which is free (CB5)
 
-FFFFFFFFFFFFFFFFFFFFFFFFFFFFINISH THISSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+Now, the ClearDB database service has been crated and the required resources allocated to your IBM Cloud account. Now... how do you use it?
 
-(remember to include connection pool)
+4. Open up your manifest.yml file (use Notepad++, Atom.io, or any similar kind of text editor. Even normal old notepad works. Don't use MS Word though. You can do it online too)
+5. In your file, add the following code to the end (If there's already a 'services' with things in it, just add the second line to it):
 
-## 3.3 Querying with ClearDB and MySQL
+```
+services:
+	- serviceName
+```
 
-Most of the database used in this program was made by my awesome coworker, Linda Yang. She used a MySQL workbench type application, established a remote connection to the database, and created the tables from there. Unfortunately, due to our poor status as interns, we don't actually have access to these SQL tools (As far as I know, at least). Also, as far as I know, there's no way to query to the ClearDB from the IBM Cloud or from ClearDB's interface itself, so we're going to have to be a bit more clever.
+Now, through the all-important manifest.yml file, you will have linked your database service with this application.
+
+So, how does one use ClearDB in the program itself?
+
+ClearDB is a MySQL database. I largely based my code on [this IBM demo](https://github.com/IBM-Cloud/compose-mysql-helloworld-nodejs), where I learned how to set up and use mysql with node. The main difference between that program and this one, is that the demo uses Compose-for-MySQL instead of ClearDB. The only real difference between the two though, is the name of the service (Mine is 'cleardb' instead of 'compose-for-mysql'). Here are the basics:
+
+### 3.2.1 Basic setup
+
+First, you will need node's mysql package, so run `npm install --save mysql` from the command line in your project folder (Databases sometimes don't work thanks to the firewwall, if that happens, you can use my chapter 2.3 method to get around that).
+
+To be able to connnect to and access your database, you'll need to use the following setup:
+
+```javascript
+// Code required for IBM Bluemix to function
+var cfenv = require('cfenv');
+var appEnv = cfenv.getAppEnv();
+
+
+//Imports the MySQL module for you to use
+var mysql = require('mysql');
+
+
+var services = appEnv.services; //Gets the services list from IBM Bluemix
+var mysql_services = services["cleardb"]; //Gets the specifications for the clearDB service
+var credentials = mysql_services[0].credentials; //Gets the CREDENTIALS for the database.
+//Credentials contain the authentication information that allows you to connect to the database.
+
+
+var connectionString = credentials.uri; // The authentication information in URI string format
+
+```
+
+Now that you've obtained the necessary tools to connect to the database, we can proceed with ... actually connecting to the database.
+
+**NOTE:** In my program, I made a separate module 'database.js' in the config folder that exports the connection string, so that in my app.js program, I need only write:
+
+```javascript
+var dbConfig = require('./config/database'); //Where dbConfig = connectionString
+```
+
+### 3.2.2 Connect vs ConnectionPool
+
+In my **ORIGINAL** code, to establish a connection to the database, I used:
+
+```javascript
+var dbConfig = require('./config/database');
+
+var connection = mysql.createConnection(dbConfig); //A connection is established using the credentials
+
+connection.connect(function(err) {
+	if (err) {
+		console.log("Could not establish connection!");
+		console.log(err)
+	}
+	else {
+		// Querying ...
+	}
+});
+```
+
+This worked for most simple practice programs I did before working on this particular project, but I soon ran into some problems.
+
+When coding for this project and testing it out on Bluemix, I often (and seemingly randomly) ran into this error:
+
+`Error: Server has closed the connection. `
+
+The apparent cause, is that when a connection is idle for a long time, MySQL automatically closes it. The solution that I implemented, is to use a connection POOL instead of a single connection.
+
+After years of searching far and wide all around the world, I finally came across the answer in a buddhist temple in the mountains of Nepal<sup>[Citation needed]</sup>, in the form of a Stack Overflow answer. Apparently, instead of using a single connection, I need to make a **POOL** of connections for my server, and make sure to release the connection after I finish using it.
+
+My new code looked like this:
+```javascript
+var dbConfig = require('./config/database');
+
+var connectionPool = mysql.createPool(dbConfig);
+
+connectionPool.getConnection(function(err, connection) {
+	if (err) {
+		console.log(err);
+	}
+	else {
+		//Querying ...
+		connection.release();
+	}
+})
+
+```
+
+With this, you should be able to query at will to the database!
+
+### 3.2.3 How to Query in your Node program
+
+Querying is simple with the mysql API, and there are many online tutorials on how to do so.
+
+Here is the super duper condensed version:
+```javascript
+//Assuming the you named the same variable 'connection' as the previous code examples have
+connection.query(anyQueryString, function(error, dataReturnedByQuery) {
+	//Do anything here
+	console.log(dataReturnedByQuery);
+});
+```
+
+Look, it's so condensed, I can already see the water droplets forming around it (haha get it? Wow, I'm not funny)!
+
+### 3.2.4 Querying with ClearDB and MySQL
+
+Most of the database used in this program was made by my awesome coworker, Linda Yang. She used a MySQL workbench type application, established a remote connection to the database, and created the tables from there. Unfortunately, due to our poor status as ~~peasants~~ interns, we don't actually have access to these SQL tools (As far as I know, at least). Also, to my knowledge, there's no way to query to the ClearDB from the IBM Cloud or from ClearDB's interface itself, so we're going to have to be a bit more clever.
 
 It seems like the **only way we can query this database, is through our application and node.js server**, so what I did, is **make a webpage whose sole function is to make any query to any part of the database**. The application itself is routed from ('/make-query'), and the page contains only a text area to put your query in, a button to submit it, and a section that displays the query result.
 
@@ -252,7 +371,7 @@ Not the most elegant solution, but one that worked for me nonetheless.
 
 To make things easier for myself, I added a few more functions to my application, accessible through the URL, including a function that displays all the data in the table ('/test'), a function that deletes all rows from the user table ('/delete-all-data-from-table-user'), and one that deletes all from the funding table ('/delete-all-data-from-table-funding').
 
-## 3.4 User Authentication using Passport
+## 3.3 User Authentication using Passport
 For user authentication with Passport, a Node library, I largely based my code on [this tutorial](https://scotch.io/tutorials/easy-node-authentication-setup-and-local)
 
 However, there are a few important differences between my code and the code from the tutorial. First of all, the tutorial uses MongoDB and Mongoose as their databases. Here in the Ontario Ministry of Health, nobody uses NoSQL databases, we use MS SQL Server, Oracle (SQL), and other relational databases. So, as mentioned before, I used the ClearDB MySQL database instead.
@@ -262,7 +381,7 @@ So each time in the tutorial, when they would use any sort of mongoose database-
 ```javascript
 // find a user whose email is the same as the forms email
 // we are checking to see if the user trying to login already exists
-User.findOne({ 'local.email' :  email }, function(err, user) {
+User.findOne({ 'local.email' : email }, function(err, user) {
  ...
 });
 ```
@@ -276,7 +395,7 @@ query.newQuery("SELECT Email FROM user u WHERE u.Email LIKE '" + email + "';", f
 });
 ```
 
-Note, I later changed it again to what it is now ...
+**NOTE:** I later changed it again to what it is now ...
 
 ```javascript
 // Use a query to find a user whose email is the same as the forms email
@@ -288,11 +407,11 @@ query.newQuery("SELECT UserName FROM user u WHERE u.UserName LIKE '" + userName 
 
 Another important difference, is that I used two-factor authentication in my version, but that is a feature I added much later, and I will get to explaining that portion later as well.
 
-## 3.5 Sending emails and tokens
+## 3.4 Sending emails and tokens
 
 NOT DONE!!! D:
 
-## 3.6 Things I'm too dumb to figure out
+## 3.5 Things I'm too dumb to figure out
 
 The main thing I have yet to implement successfully is a way to **get rid of unvalidated users** and their **expired tokens**. If you look in the file 'loginquery.js', you'll find a pair of purge functions. Neither of these really function properly. If you are continuing to work on this project, and can solve the token problem, then that would be **awesome**.
 

@@ -3,7 +3,7 @@
 // Import foreign goods
 var express = require('express');
 var path = require('path');
-//var favicon = require('serve-favicon');
+//var favicon = require('serve-favicon'); //Not needed
 var logger = require('morgan'); //Note logger = morgan~!
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -16,18 +16,18 @@ var cfenv = require('cfenv');
 var appEnv = cfenv.getAppEnv();
 
 //Application specific tools
-//var mongoose = require('mongoose');
-var passport = require('passport');
+//var mongoose = require('mongoose'); //We use MySQL, not Mongoose
+var passport = require('passport'); //Passport for authentication
 var session = require('express-session');
 var flash = require('connect-flash');
-var mysql = require('mysql');
+var mysql = require('mysql'); //Database api
 
 var morgan = require('morgan');
 //Import local goods
 var configDB = require('./config/database.js');
 //var users = require('./routes/users'); //We don't need tHIS anymore.
 
-var app = express(); //Application set!
+var app = express(); //Sets up the express application
 //var port = /* process.env.PORT || */8081;
 
 var index = require('./routes/routes');//(app, passport);
@@ -61,7 +61,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session( {secret: 'thenamesovbyeahyouknowmeimtheironchancellorofgermanyyeahyoubetterbringthegameifyousteptomecauseimthemasterofforeignpolicywhat',
                   resave: true,
                   saveUninitialized: true} ));
-// ^ session secret (why do I do this to myself...)
+// ^ session secret (why do I do this to myself...) is just to add random-ness to the password encryption
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
