@@ -20,15 +20,15 @@ Anyways, on to cloud development and (hopefully) making your life easier.
 ## 2.1 Administrative Privileges
 **Problem**
 
-As a software development intern, you do not have access to administrative priviledges on your computer! This means you will not be able to INSTALL any programs onto your computer, or CHANGE any sensitive data or settings on your computer. Of course, you can still download files from the internet, but when you have to install a new language, or change a PATH variable, then you will not have permission to do so.
+As a software development intern, you do not have access to administrative priviledges on your computer! This means you will not be able to **INSTALL** any programs onto your computer, or **CHANGE** any sensitive data or settings on your computer. Of course, you can still download files from the internet, but when you have to install a new language, or change a PATH variable, then you will not have permission to do so.
 
 **Solution**
 
-To solve this problem, you will need to enlist the help of your manager. If the heavens smile upon you this co-op term, then the ministry might be able to get you administrative priviledges to your own computer upon your request; however, that is unlikely to happen, and it did not happen to me<sup>[1]</sup>. More likely, after a lengthy request process, your manager will most likely have to give admin access to your computer to a trusted coworker.
+To solve this problem, you will need to **enlist the help of your manager**. If the heavens smile upon you this co-op term, then the ministry might be able to get you administrative priviledges to your own computer upon your request; however, that is unlikely to happen, and it did not happen to me<sup>[1]</sup>. More likely, after a lengthy request process, your manager will most likely have to **give admin access to your computer to a trusted coworker**.
 
-After he/she gains access to your computer, every time you need administrative priviledges, you will have to ask him/her to login and install or change things for you. It's a bit annoying and inefficient for everyone involved, so its best to first create a list of all the things you know you need an admin to install for you, and get them all ready before your coworker buddy comes to install it for you. That way, you can get the installation done in one (or a few) fell swoop(s), rather than have him/her come over a dozen times to install one thing.
+After he/she gains access to your computer, **every time you need administrative priviledges, you will have to ask him/her to login and install or change things for you**. It's a bit annoying and inefficient for everyone involved, so its best to first **create a list of all the things you know you need an admin to install for you**, and get them all ready before your coworker buddy comes to install it for you. That way, you can **get the installation done in one (or a few) fell swoop(s)**, rather than have him/her come over a dozen times to install one thing.
 
-[1] Apparently in the past, software development interns were granted administrative access to their computers, but this priviledge was recently removed for security reasons (I think there was some virus going around?). Anyway, thanks a lot that one intern who probably downloaded a virus, I blame this on you.
+[1] Sidenote: apparently in the past, software development interns were granted administrative access to their computers, but this priviledge was recently removed for security reasons (I think there was some virus going around?). Anyway, thanks a lot that one intern who probably downloaded a virus, I blame this on you.
 
 ## 2.2 The OPS Firewall
 **Problem**
@@ -169,7 +169,7 @@ Here is the step by step process.
 **Solution (or more accurately, workaround) for global packages**
 Similarily and also unfortunately, I also could not find a way to make this work directly on the work computers as well. The only way I knew to get around this, is that whenever you want to use a global command, to transfer the necessary files to your home computer, install/use the global command from home, and then transfer it back to the work computers. This is highly inefficient, so I either avoid global commands whenever possible, or I bring my home computer (which happens to be a laptop) to work, and use my computer with the wifi downstairs when I needed to. Not exactly an elegant solution, but it worked for me.
 
-**__If you come up with a better solution, then by all means, go ahead and use that. This is just what I have learned worked best for me at the time (with the information I possessed).__**
+__**If you come up with a better solution, then by all means, go ahead and use that. This is just what I have learned worked best for me at the time (with the information I possessed).**__
 
 ## 2.4 Debugging on the Cloud
 
@@ -405,9 +405,10 @@ query.newQuery("SELECT UserName FROM user u WHERE u.UserName LIKE '" + userName 
 ```
 
 
-Another important difference, is that I used two-factor authentication in my version, but that is a feature I added much later, and I will get to explaining that portion later as well.
+Another important difference, is that I used two-factor authentication in my version, but that is a feature I added much later, and I will get to explaining that portion later.
 
 ## 3.4 Sending emails and tokens
+Turns out, by later, I mean I'll explain right now.
 
 The email token validation part is the last feature I added.
 
@@ -415,11 +416,11 @@ The idea is that after the user 'signs up', an email with a link is sent to thei
 
 I did THREE major things for this.
 
-First is, using my '/make-query' online, I query'd a new table called 'token', with columns for identifying the associated user, the token itself, and the expiry date (which is in [Unix Time](https://en.wikipedia.org/wiki/Unix_time)).
+**First** is, using my '/make-query' online, I query'd a new table called 'token', with columns for identifying the associated user, the token itself, and the expiry date (which is in [Unix Time](https://en.wikipedia.org/wiki/Unix_time)).
 
-To create the token, I used the bcrypt function in my 'loginquery.js', the same one used to encrypt passwords (Now that I think about it, maybe that's not very secure??? :S ).
+**Second**, to create the token, I used the bcrypt function in my 'loginquery.js', the same one used to encrypt passwords (Now that I think about it, maybe that's not very secure??? :S ).
 
-To send the email, I used a new node package, called 'nodemailer'.
+**Third**, to send the email, I used a new node package, called 'nodemailer'.
 
 ```javascript
 var nodeMailer = require('nodemailer'); //Import the module
