@@ -5,13 +5,11 @@
 **December, 2017**
 
 # 1.0 INTRODUCTION
-Obligatory introductory hook:
+**Obligatory introductory hook:**
 
 *Welcome to the machine. You are a small cog in the enormous all-encompassing engine that is the Ontario Government. To survive, you cannot simply follow the mindless herd. You must rise above the herd, define your own identity, and become your own individual. Become the Ubermensch.*
 
-*Awaken my child. Embrace the glory that is your birthright. Know that I am the Overmind; the eternal will of the Swarm, and you have been created to serve me.*
-
-Since I know you have already decided to follow the Nietzschean philosophy of self-determination, why should you even bother reading this document? Well, as a past intern, I have experienced a set of issues and difficulties that have gotten in the way of my productivity on the cloud, with no real training or mentoring to help me along. This could change in the future, because as of the writing of this document, the cloud is a very new thing for our department, so nobody really knows how to use it. So in order for you to not be stuck on all the things I was stuck on, I have been voluntold to document all the difficulties I had and the things that I have learned while creating my main project, the First Nations' Digital Income Reporting thing.
+Since I know you have already decided to follow the Nietzschean philosophy of self-determination, why should you even bother reading this document instead of going straight to carving your own path? Well, as a past co-op student, I have experienced a set of issues and difficulties that have gotten in the way of my productivity on the cloud, with no real training or mentoring to help me along. This could change in the future, because as of the writing of this document, the cloud is a very new thing for our department, so nobody really knows how to use it. So in order for you to not be stuck on all the things I was stuck on, I have been voluntold to document all the difficulties I had and the things that I have learned while creating my main project, the First Nations' Digital Income Reporting program.
 
 Anyways, on to cloud development and (hopefully) making your life easier.
 
@@ -173,6 +171,9 @@ __**If you come up with a better solution, then by all means, go ahead and use t
 
 ## 2.4 Debugging on the Cloud
 
+**Problem**
+
+
 As someone who has never really done work with backend programming before this job, the thing I initially found most frustrating about work on the cloud is debugging. Whenever a portion of my program fails, it would give me an
 
 `Error 500: Internal Server Error`.
@@ -190,6 +191,8 @@ I know. I'll just write some console.logs to tell me which parts work and which 
 WHAT??? (╯°□°）╯︵ ┻━┻
 
 So... what now?
+
+**Solution**
 
  ┬─━┬﻿ ノ(゜-゜ノ)
 
@@ -218,7 +221,7 @@ The problem usually goes away after simply waiting 5-10 minutes, although someti
 
 I spent around a month developing this project, meant to be a proof-of-concept prototype application for the IBM Cloud. You can find its github [here](http://github.com/haodafan/IBMCloudDemo-FNTPR). The github shows the ReadMe.MD file, which contains some basic information about my project.
 
-To DOWNLOAD the source files for my project, simply open command prompt in the correct folder, and type the command:
+To download the source files for my project, simply open command prompt in the correct folder, and type the command:
 
 `git clone https://github.com/haodafan/IBMCloudDemo-FNTPR.git`
 
@@ -350,14 +353,14 @@ Here is the super duper condensed version:
 ```javascript
 //Assuming the you named the same variable 'connection' as the previous code examples have
 connection.query(anyQueryString, function(error, dataReturnedByQuery) {
-	//Do anything here
-	console.log(dataReturnedByQuery);
+	//Code here is executed after you query
+	console.log(dataReturnedByQuery); //That variable is anything returned by MySQL as a result of your query
 });
 ```
 
 Look, it's so condensed, I can already see the water droplets forming around it (haha get it? Wow, I'm not funny)!
 
-### 3.2.4 Querying with ClearDB and MySQL
+### 3.2.4 Editing and Viewing the database with ClearDB and MySQL
 
 Most of the database used in this program was made by my awesome coworker, Linda Yang. She used a MySQL workbench type application, established a remote connection to the database, and created the tables from there. Unfortunately, due to our poor status as ~~peasants~~ interns, we don't actually have access to these SQL tools (As far as I know, at least). Also, to my knowledge, there's no way to query to the ClearDB from the IBM Cloud or from ClearDB's interface itself, so we're going to have to be a bit more clever.
 
@@ -371,6 +374,31 @@ Not the most elegant solution, but one that worked for me nonetheless.
 
 To make things easier for myself, I added a few more functions to my application, accessible through the URL, including a function that displays all the data in the table ('/test'), a function that deletes all rows from the user table ('/delete-all-data-from-table-user'), and one that deletes all from the funding table ('/delete-all-data-from-table-funding').
 
+**NOTE:** Whenever you want to log the data from your database, do NOT log it as a string. Remember that it is an OBJECT, so you must log it as such:
+```javascript
+connection.query("SELECT * FROM table", function(err, data) {
+	//This code WILL NOT work
+	console.log("Data: " + data);
+
+	//This code WILL work
+	console.log("Data: ");
+	console.log(data)
+})
+```
+
+**SIMILAR NOTE:** Whenever you want to output objects from the database as strings or html, you can't do it directly either.
+
+```javascript
+connection.query("SELECT * FROM table", function(err, data) {
+	var outputThis = data; //This is NOT a string. This is an OBJECT
+
+	var outputThis1 = JSON.stringify(data) //This is a STRING. You can output this.
+	var outputThisThingInParticular = data.name //Assuming name is a string column, this is a STRING, and you can output it.
+})
+```
+
+You may think this is obvious. And you might be right. But I know I was stuck trying to figure out why my program wouldn't output anything for a LONG time, and turns out, there was nothing wrong with my database or querying or anything, I was just trying to output an object as if it was a string. So hopefully this saves you a lot of trouble, in case you are as dumb as I am.
+
 ## 3.3 User Authentication using Passport
 For user authentication with Passport, a Node library, I largely based my code on [this tutorial](https://scotch.io/tutorials/easy-node-authentication-setup-and-local)
 
@@ -382,7 +410,7 @@ So each time in the tutorial, when they would use any sort of mongoose database-
 // find a user whose email is the same as the forms email
 // we are checking to see if the user trying to login already exists
 User.findOne({ 'local.email' : email }, function(err, user) {
- ...
+ //...
 });
 ```
 
@@ -391,7 +419,7 @@ I would replace it with ...
 ```javascript
 // Use a query to find a user whose email is the same as the forms email
 query.newQuery("SELECT Email FROM user u WHERE u.Email LIKE '" + email + "';", function(error, user) {
-	...
+	// Code here executes after you query ...
 });
 ```
 
@@ -400,7 +428,7 @@ query.newQuery("SELECT Email FROM user u WHERE u.Email LIKE '" + email + "';", f
 ```javascript
 // Use a query to find a user whose email is the same as the forms email
 query.newQuery("SELECT UserName FROM user u WHERE u.UserName LIKE '" + userName + "';", function(error, data) {
-	...
+	//Code here executes after you query...
 });
 ```
 
@@ -431,7 +459,7 @@ var smtpTransport = nodeMailer.createTransport({
   host: "smtp.gmail.com",
   auth: {
     user: "haodasdemo@gmail.com",
-    pass: "godisdeadgodremainsdeadandwehavekilledhim"
+    pass: "godisdeadgodremainsdeadandwehavekilledhim" //I made that password specifically for that account and this program, so don't you go trying to access my bank account or something with it.
   }
 })
 
@@ -446,7 +474,7 @@ smtpTransport.sendMail(mailConfig, function(err, response) {
 		console.log(err)
 	}
 	else {
-		//whatever
+		//code here will execute after you sent the mail
 	}
 });
 
