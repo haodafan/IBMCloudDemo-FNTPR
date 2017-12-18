@@ -7,13 +7,27 @@
 # 1.0 INTRODUCTION
 **Obligatory introductory hook:**
 
-*Welcome to the machine. You are a small cog in the enormous all-encompassing engine that is the Ontario Government. To survive, you cannot simply follow the mindless herd. You must rise above the herd, define your own identity, and become your own individual. Become the Ubermensch.*
+*Welcome to the machine. You are a small cog in the enormous all-encompassing engine that is the Ontario Government. To survive, you cannot simply follow the mindless herd. You must rise above the herd, define your own identity and values, and become your own individual. Be the Ubermensch. Code the software you wish to see in the world, using the sheer power of your will.*
 
-Since I know you have already decided to follow the Nietzschean philosophy of self-determination, why should you even bother reading this document instead of going straight to carving your own path? Well, as a past co-op student, I have experienced a set of issues and difficulties that have gotten in the way of my productivity on the cloud, with no real training or mentoring to help me along. This could change in the future, because as of the writing of this document, the cloud is a very new thing for our department, so nobody really knows how to use it. So in order for you to not be stuck on all the things I was stuck on, I have been voluntold to document all the difficulties I had and the things that I have learned while creating my main project, the First Nations' Digital Income Reporting program.
+*- I think Nietzsche said something like this before probably or maybe I just made it up*
+
+---
+
+Since I know you have already decided to follow the Nietzschean philosophy of self-determination, why should you even bother reading this document instead of going straight to carving your own path?
+
+**What is the purpose of this document?**
+
+As a past co-op student, I have experienced a set of **issues and difficulties** that have gotten in the way of my productivity on the cloud, with no real training or mentoring to help me along (although this could change in the future, because as of the writing of this document, the cloud is a very new thing for our department). In order for you to not be stuck on all the things I was stuck on, I have been voluntold to document all the difficulties I had and the things that I have learned while creating my main project, the First Nations' Digital Income Reporting program.
 
 Anyways, on to cloud development and (hopefully) making your life easier.
 
+(Note: I am NOT a technical writer. If anything here confuses you, please feel free to contact me and ask me anything, I have all my contact information at the end of the document.)
+
 # 2.0 PROBLEMS YOU WILL ENCOUNTER AND HOW TO SOLVE ... MOST OF THEM
+
+*We choose to go to the Moon in this decade and do other things* (like develop on the Cloud)*, not because they are easy, but because they are hard!*
+
+*- John F. Kennedy*
 
 ## 2.1 Administrative Privileges
 **Problem**
@@ -31,7 +45,9 @@ After he/she gains access to your computer, **every time you need administrative
 ## 2.2 The OPS Firewall
 **Problem**
 
-The OPS firewall is probably the single most annoying obstacle you will encounter in your first few days or weeks (or if you're me, months) of work. The OPS firewall forbids you from accessing certain websites (such as YouTube), and denies you the freedom to download and access the web from the command line or through third party applications that aren't browsers (such as Maven). The Ontario Public Service's Great Firewall restricts you to such an extent, that it makes even Fang BinXing jealous<sup>[citation needed]</sup> , and as cloud developers, asking us to work with this firewall is akin to asking a surgeon to perform surgery with his bare hands and blindfolded.
+The OPS firewall is probably the single most annoying obstacle I encountered in my first few weeks of work. The OPS firewall **forbids you from accessing certain websites** (such as **YouTube**), and **denies you the freedom to download and access** the web from the **command line** or through **third party applications** that aren't browsers (such as **Maven** and **JMeter**).
+
+The Ontario Public Service's Great Firewall restricts you to such an extent, that it makes even Fang BinXing jealous<sup>[citation needed]</sup> , and as cloud developers, asking us to work with this firewall is akin to asking a surgeon to perform surgery with his bare hands and blindfolded.
 
 **Solution**
 
@@ -69,8 +85,8 @@ Then, enter the following code:
 	</proxies>
 </settings>
 ```
-**Note:** If you already have a settings.xml, then simply add the contents inside the <settings></settings> tags.
 
+**Note:** If you already have a settings.xml, then simply add the contents inside the <settings></settings> tags.
 
 ### 2.2.2 Setting up a proxy for JMeter
 
@@ -93,7 +109,7 @@ If you're building a Node.JS application on IBM Cloud (aka IBM Bluemix), then yo
 
 First, ask your administratively talented coworker (or whoever has admin rights to your computer) to log in and install it for you. That should ensure it installs properly, and the commands are added to your PATH environment variables.
 
-Unfortunately, for the CLI to connect to IBM's Cloud, you'll need to get past the gates of ~~Mordor~~ OPS's firewall. Here are more step by step instructions. I make learning FUN.
+Unfortunately, for the CLI to connect to IBM's Cloud, you'll need to get past the gates of ~~Mordor~~ OPS's firewall. Here are more of my step by step instructions. I make learning FUN.
 
 1. Go to your control panel, and look up 'Environment Variables'.
 2. Click on 'Edit environment variables for your account'.
@@ -107,7 +123,9 @@ Now, you should be able to run the Bluemix CLI without any dehabilitating firewa
 
 ### 2.2.4 Setting up a proxy for Node and NPM
 
-If you want to get in on the newest ~~fads~~ ~~trends~~ ~~bandwagons~~ technologies in the web development world, you'll need to use Node.JS, and its equally important partner, Node Package Manager (npm). Unfortunately, it uses a command line interface, and like everything else with command lines, the firewall hates it with a passion. Once again, let's set a proxy. Open up the command line, and type the following two commands:
+If you want to get in on the newest ~~fads~~ ~~trends~~ ~~bandwagons~~ technologies in the web development world, you'll need to use Node.JS, and its equally important partner, Node Package Manager (npm).
+
+Unfortunately, it uses a command line interface, and like everything else with command lines, the firewall hates it with a passion. Once again, let's set a **proxy**. Open up the command line, and type the following two commands:
 
 `npm config set proxy http://204.40.130.129:3128`
 
@@ -137,7 +155,7 @@ All the information above was a result of me looking up how to setup proxies for
 
 
 
-Anyway, are those cows grazing in the distance I see? Looks like it's time to MOO-ve on ahaha ... (why am I like this)
+Anyway, are those cows I see, grazing in the distance? Looks like it's time to MOO-ve on ahaha ... (sorry)
 
 ## 2.3 Node Package Manager Problems
 **Problem**
@@ -173,8 +191,7 @@ __**If you come up with a better solution, then by all means, go ahead and use t
 
 **Problem**
 
-
-As someone who has never really done work with backend programming before this job, the thing I initially found most frustrating about work on the cloud is debugging. Whenever a portion of my program fails, it would give me an
+As someone who has never really done work with backend programming before this job, the thing I initially found most frustrating about work on the cloud is debugging. Whenever a portion of my program fails while testing with my browser, it would give me a
 
 `Error 500: Internal Server Error`.
 
@@ -182,21 +199,21 @@ Okay... not very helpful, let me just ctrl+shift+I ...
 
 ```Error 500 Internal Server Error```
 
-What the ???? How am I supposed to know what's wrong if this is all the info you give me??? ARUGHHHGHHH
+What the ... ?? How am I supposed to know what's wrong if this is all the info you give me??? ARGHHHGHHH
 
-I know. I'll just write some console.logs to tell me which parts work and which parts don't. Now, when I go into the browser console...
+I know. I'll just write some console.logs to tell me which parts work and which parts don't. Now, when I go into the browser console, I see...
 
 ```Error 500 Internal Server Error```
 
 WHAT??? (╯°□°）╯︵ ┻━┻
 
-So... what now?
-
 **Solution**
 
- ┬─━┬﻿ ノ(゜-゜ノ)
+So... how do you debug on the cloud?
 
-Turns out, when running any back-end server application, the app will not print its logs or statuses in the browser console. The **browser console** only deals with **client side code**. **Server side logs** are handled by the back-end server console, which in this case, is your **IBM Cloud server**.
+ ┬─━┬﻿ ノ( ゜-゜ノ)
+
+Turns out, when running any back-end server application, the app will not print its logs or statuses (or anything useful) in the browser console. The **browser console** only deals with **client side code**. **Server side logs** are handled by the back-end server console, which in this case, is your **IBM Cloud server**.
 
 You have two ways of retrieving the logs. The first way, the one that I don't like, is through IBM Cloud's web UI, where you can view your logs from there. But IBM's browser-based UI is very slow and the retrieved logs are both hard to read and slow to load.
 
@@ -217,9 +234,18 @@ The problem usually goes away after simply waiting 5-10 minutes, although someti
 
 ¯\\ _ (ツ) _ /¯
 
-# 3.0 MY CLOUD PROJECT AND HOW I DEVELOPED IT
+# 3.0 MY CLOUD PROJECT AND HOW TO RUN IT / USE THE CLOUD
+
+*JUST DO IT!*
+
+*- Shia Laboeuf*
+
 
 I spent around a month developing this project, meant to be a proof-of-concept prototype application for the IBM Cloud. You can find its github [here](http://github.com/haodafan/IBMCloudDemo-FNTPR). The github shows the ReadMe.MD file, which contains some basic information about my project.
+
+Here, I'll show you how to run and edit it.
+
+# 3.1 Downloading my project
 
 To download the source files for my project, simply open command prompt in the correct folder, and type the command:
 
@@ -227,17 +253,72 @@ To download the source files for my project, simply open command prompt in the c
 
 (if you're doing this at work, make sure to have the proxy setup! See 2.2.5)
 
-My project has several components, which can be considered mini-projects. Since I don't trust myself to be able to code in an easily readable and understandable format, I will go through my development process of each part of those components.
+## 3.2 Setting up the app locally and connecting it to the Cloud
 
-## 3.1 Starting a Node.JS project on Bluemix
+### 3.2.1 Method 1: Using Nenad's Account
+
+My current version of the project is already on Nenad Jelic's IBM Cloud account.
+
+To push any changes you make onto this version, you must first contact him and ask for his account information (in a not sketchy way). His email is Nenad.Jelic@ontario.ca , but you can also ask your manager Sam to contact him for you.
+
+After knowing his username and password,
+
+1. Shift right click the folder 'IBMCloudDemo-FNTPR', which contains the source files for my program, and click the option to open command prompt there.
+2. Enter the command: `cf api https://api.ng.bluemix.net`
+3. Enter the command: `cf login`
+4. Enter the username, press enter, enter the password, press enter
+
+### 3.2.2 Method 2: Using your own Account
+
+If you have your own IBM Cloud account and would like to use that, it's a little harder to do. This is because I already have the necessary database service set up on Nenad's account.
+
+In order to make my program work, you need to set up your own ClearDB database.
+
+First, follow the instructions on Section 4.2 to create your own ClearDB database.
+
+**NOTE:** If you didn't name your database 'ClearDB_LindaTest', you'll have to go into the file 'manifest.yml', and in the 'services' section, change that to match your database name.
+
+Then, you must create the database table structure identical to that of mine. I suggest getting the help of my coworker Linda Yang, as she is the one who created much of my database initially, and is probably the most knowledgeable on what the structure is. A visual structure of my database can be found in the image 'diagram2.png'.
+
+Once you did both these things, you are ready to set it up on the cloud! It is done in the exact same way as Method 1, except with your own account credentials instead of Nenad's.
+
+## 3.3 How to Push Changes onto the Cloud
+
+Pushing your changes onto the cloud is easier than dominating the midlane as Tinker.
+
+Simply open up your command prompt at the source folder (like before), enter the command `cf push`.
+
+It should take about a minute for IBM Cloud to build and deploy your project for you.
+
+**NOTE ON HOW I DEBUG:**
+1. Make a change in my code
+2. enter `cf push` in command line
+3. Open git bash (like I said in 2.4, the git bash font is smaller and more readable)
+4. enter `cf logs --recent demo-fntpr-2` in git bash (you don't need to open it at any specific location)
+5. Read the log and see what I did right/wrong
+6. Repeat
+
+# 4.0 HOW I DEVELOPED MY CLOUD PROJECT
+
+*If builders built buildings the way programmers wrote programs, then the first woodpecker that came along wound destroy civilization.*
+
+*-Gerald Weinberg*
+
+---
+
+My project has several components, which can be considered mini-projects. Since I don't trust myself to be able to code in an easily readable and understandable format, I will do my best to go through and explain my development process for each part of those components.
+
+## 4.1 Starting a Node.JS project on Bluemix
+
+
 I started off my project with [this simple tutorial](https://console.bluemix.net/docs/runtimes/nodejs/getting-started.html).
 
 This tutorial essentially taught me how to setup my development environment, and push a sample application onto Bluemix.
 
-### 3.1.1 manifest.yml
+### 4.1.1 manifest.yml
 The manifest.yml file contains the metadata for your project (like your project name, your project URL, the services that are used, etc). This file is important, as it tells the IBM Cloud how to run your project.
 
-## 3.2 Using ClearDB (MySQL) with your Node application and the Cloud.
+## 4.2 Using ClearDB (MySQL) with your Node application and the Cloud.
 
 The sample application uses Cloudant, which is a NoSQL database. Now, even though NoSQL databases like Cloudant and MongoDB are currently all the rage, the government and many large corporations prefer to use good old SQL. So, I'll give you a lil lesson on how to use ClearDB, a free MySQL database service, for your Node application.
 
@@ -261,7 +342,7 @@ So, how does one use ClearDB in the program itself?
 
 ClearDB is a MySQL database. I largely based my code on [this IBM demo](https://github.com/IBM-Cloud/compose-mysql-helloworld-nodejs), where I learned how to set up and use mysql with node. The main difference between that program and this one, is that the demo uses Compose-for-MySQL instead of ClearDB. The only real difference between the two though, is the name of the service (Mine is 'cleardb' instead of 'compose-for-mysql'). Here are the basics:
 
-### 3.2.1 Basic setup
+### 4.2.1 Basic setup
 
 First, you will need node's mysql package, so run `npm install --save mysql` from the command line in your project folder (Databases sometimes don't work thanks to the firewwall, if that happens, you can use my chapter 2.3 method to get around that).
 
@@ -295,7 +376,7 @@ Now that you've obtained the necessary tools to connect to the database, we can 
 var dbConfig = require('./config/database'); //Where dbConfig = connectionString
 ```
 
-### 3.2.2 Connect vs ConnectionPool
+### 4.2.2 Connect vs ConnectionPool
 
 In my **ORIGINAL** code, to establish a connection to the database, I used:
 
@@ -360,7 +441,7 @@ connection.query(anyQueryString, function(error, dataReturnedByQuery) {
 
 Look, it's so condensed, I can already see the water droplets forming around it (haha get it? Wow, I'm not funny)!
 
-### 3.2.4 Editing and Viewing the database with ClearDB and MySQL
+### 4.2.4 Editing and Viewing the database with ClearDB and MySQL
 
 Most of the database used in this program was made by my awesome coworker, Linda Yang. She used a MySQL workbench type application, established a remote connection to the database, and created the tables from there. Unfortunately, due to our poor status as ~~peasants~~ interns, we don't actually have access to these SQL tools (As far as I know, at least). Also, to my knowledge, there's no way to query to the ClearDB from the IBM Cloud or from ClearDB's interface itself, so we're going to have to be a bit more clever.
 
@@ -399,7 +480,7 @@ connection.query("SELECT * FROM table", function(err, data) {
 
 You may think this is obvious. And you might be right. But I know I was stuck trying to figure out why my program wouldn't output anything for a LONG time, and turns out, there was nothing wrong with my database or querying or anything, I was just trying to output an object as if it was a string. So hopefully this saves you a lot of trouble, in case you are as dumb as I am.
 
-## 3.3 User Authentication using Passport
+## 4.3 User Authentication using Passport
 For user authentication with Passport, a Node library, I largely based my code on [this tutorial](https://scotch.io/tutorials/easy-node-authentication-setup-and-local)
 
 However, there are a few important differences between my code and the code from the tutorial. First of all, the tutorial uses MongoDB and Mongoose as their databases. Here in the Ontario Ministry of Health, nobody uses NoSQL databases, we use MS SQL Server, Oracle (SQL), and other relational databases. So, as mentioned before, I used the ClearDB MySQL database instead.
@@ -435,7 +516,7 @@ query.newQuery("SELECT UserName FROM user u WHERE u.UserName LIKE '" + userName 
 
 Another important difference, is that I used two-factor authentication in my version, but that is a feature I added much later, and I will get to explaining that portion later.
 
-## 3.4 Sending emails and tokens
+## 4.4 Sending emails and tokens
 Turns out, by later, I mean I'll explain right now.
 
 The email token validation part is the last feature I added.
@@ -482,20 +563,25 @@ smtpTransport.sendMail(mailConfig, function(err, response) {
 
 **NOTE:** If you don't want to send from haodasdemo@gmail.com, you can use a different email source by configuring the data in `nodeMailer.createTransport({ data ... })`.
 
-## 3.5 Things I'm too dumb to figure out
+## 4.5 Things I'm too dumb to figure out
 
 The main thing I have yet to implement successfully is a way to **get rid of unvalidated users** and their **expired tokens**. If you look in the file 'loginquery.js', you'll find a pair of purge functions. Neither of these really function properly. If you are continuing to work on this project, and can solve the token problem, then that would be **awesome**.
 
-## 3.6 Other areas of improvement
+## 4.6 Other areas of improvement
 
 There are a few other things I would've liked to improve on my program.
 1. My token authentication is not modularized like the rest of my code! The logic for the token verification and stuff is in **'routes.js'**, which is **really bad form**. Better form would be to make a new javascript file in '/models/' and import it to routes.
 2. My program is blank and ugly! I did not spend much effort at all in the front end UI design.
 3. Although passport is great and all, I think (correct me if I'm wrong) the IBM Cloud has its own service for authentication, which is much more secure than anything my naive lil brain can think up.
-4. Embedded JavaScript (ejs) is an okay templating system for the front end views, but I kind of wish I used something a little fancier, like React or Angular.
+4. Embedded JavaScript (ejs) is an okay templating system for the front end views, but I kind of wish I used something a little fancier, like **React or Angular**. Perhaps that's something you could do?
 
-# 4.0 Conclusion
-*The Die is Cast. The Rubicon has been crossed. Mother, you will either see me the next Pontifex Maximus, or go into exile.* From here until 4-8 months from now, there's no going back.  But I believe in you, young co-op student. You will *veni, vidi, and then vici* every challenge you face at this workplace, and emerge as undisputed master of Rome, and by extension, the World.
+# 5.0 Conclusion
+
+*"The Die is Cast. The Rubicon has been crossed. Mother, you will either see me the next* Cloud Developer *Maximus, or go into exile."* From here until 4-8 months from now, there's no going back. But I believe in you, young co-op student. You will *veni, vidi, and then vici* every challenge you face at this workplace, and emerge as undisputed master of Rome, and by extension, the World.
+
+*- Julius Caesar quotes with weird context?*
+
+---
 
 Hopefully this document will ~~secure my legacy~~ help you with your job here.
 
