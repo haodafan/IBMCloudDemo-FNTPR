@@ -456,7 +456,7 @@ Most of the database used in this program was made by my awesome coworker, Linda
 
 It seems like the **only way we can query this database, is through our application and node.js server**, so what I did, is **make a webpage whose sole function is to make any query to any part of the database**. The application itself is routed from ('/make-query'), and the page contains only a text area to put your query in, a button to submit it, and a section that displays the query result.
 
-![What it looks like](/make-query.png)
+![What it looks like](/make-query.PNG)
 
 The application logic is very simple. The submit button makes a POST request with the inputted text, and I simply use my newQuery function (which just makes a query) with whatever input it received, and displays the result in that section.
 
