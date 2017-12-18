@@ -304,7 +304,7 @@ It should take about a minute for IBM Cloud to build and deploy your project for
 
 # 4.0 HOW I DEVELOPED MY CLOUD PROJECT
 
-*If builders built buildings the way programmers wrote programs, then the first woodpecker that came along wound destroy civilization.*
+*If builders built buildings the way programmers wrote programs, then the first woodpecker that came along would destroy civilization.*
 
 *-Gerald Weinberg*
 
