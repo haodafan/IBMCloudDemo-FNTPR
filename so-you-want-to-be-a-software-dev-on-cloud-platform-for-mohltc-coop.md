@@ -253,7 +253,15 @@ I spent around a month developing this project, meant to be a proof-of-concept p
 
 Here, I'll show you how to run and edit it.
 
-# 3.1 Downloading my project
+## 3.1 Before starting...
+
+Make sure you have the following installed: 
+- [NodeJS (version 8 or higher)](https://nodejs.org/en/) 
+- [Bluemix Command Line Interface](https://console.bluemix.net/docs/cli/index.html#downloads)
+
+Remember to enlist the help of your administratively-talented coworker/manager, and to set up a proxy (Refer to Section 2)
+
+## 3.2 Downloading my project
 
 To download the source files for my project, simply open command prompt in the folder you want to put it in (remember, you can shift right click the folder, and select 'open command prompt here'), and type the command:
 
@@ -267,9 +275,9 @@ After you cloned the source files, you'll have to download the **dependencies**.
 
 With those two simple commands, you should have all the source files necessary for my project. 
 
-## 3.2 Setting up the app locally and connecting it to the Cloud
+## 3.3 Setting up the app locally and connecting it to the Cloud
 
-### 3.2.1 Method 1: Using Nenad's Account
+### 3.3.1 Method 1: Using Nenad's Account
 
 My current version of the project is already on Nenad Jelic's IBM Cloud account.
 
@@ -282,7 +290,7 @@ After knowing his username and password,
 3. Enter the command: `cf login`
 4. Enter the username, press enter, enter the password, press enter
 
-### 3.2.2 Method 2: Using your own Account
+### 3.3.2 Method 2: Using your own Account
 
 If you have your own IBM Cloud account and would like to use that, it's a little harder to do. This is because I already have the necessary database service set up on Nenad's account.
 
@@ -298,7 +306,7 @@ Then, you must create the database table structure identical to that of mine. I 
 
 Once you did both these things, you are ready to set it up on the cloud! It is done in the exact same way as Method 1, except with your own account credentials instead of Nenad's.
 
-## 3.3 How to Push Changes onto the Cloud
+## 3.4 How to Push Changes onto the Cloud
 
 Pushing your changes onto the cloud is easier than dominating the midlane as Tinker.
 
