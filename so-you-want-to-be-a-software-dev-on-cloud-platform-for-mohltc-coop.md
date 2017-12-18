@@ -259,7 +259,13 @@ To download the source files for my project, simply open command prompt in the f
 
 `git clone https://github.com/haodafan/IBMCloudDemo-FNTPR.git`
 
-(if you're doing this at work, make sure to have the proxy setup! See 2.2.5)
+After you cloned the source files, you'll have to download the **dependencies**. For the sake of conserving space, I have omitted the dependencies in my git repository, but you can easily download them by running the node command: 
+
+`npm install` 
+
+(if you're doing this at work, make sure to have the proxy setup! See 2.2.4 and 2.2.5)
+
+With those two simple commands, you should have all the source files necessary for my project. 
 
 ## 3.2 Setting up the app locally and connecting it to the Cloud
 
