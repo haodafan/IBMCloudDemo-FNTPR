@@ -227,7 +227,13 @@ with applicationName being whatever name you gave to your application (in the ca
 
 ## 2.5 UNSOLVED ISSUES
 
-### 2.4.1 'Proxy Authentication Required'
+### 2.5.1 Building some applications on Java EE 
+
+Note that some applications require more than just Apache Maven to build it (namingly, the [dayTrader7](https://github.com/WASdev/sample.daytrader7) program I was asked to port to the cloud. Even after setting up the proxy for Apache Maven, it still returned connection-related errors for me whenever I tried building it. I eventually gave up on this, as I could not find what exactly was causing the problem and how to fix it.
+
+Maybe you could figure this one out? 
+
+### 2.5.2 'Proxy Authentication Required'
 
 Even after setting a proxy, every so often, you are once again prevented from accessing the internet via command line because of an error that prompts you to authenticate yourself ("Proxy Authentication Required."). To this day, I still have no idea what causes it. I do know that it usually happens early in the morning (~9AM), at noon, and about an hour or so before I'm supposed to leave (~4pm).
 
