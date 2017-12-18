@@ -13,8 +13,6 @@
 
 ---
 
-Since I know you have already decided to follow the Nietzschean philosophy of self-determination, why should you even bother reading this document instead of going straight to carving your own path?
-
 **What is the purpose of this document?**
 
 As a past co-op student, I have experienced a set of **issues and difficulties** that have gotten in the way of my productivity on the cloud, with no real training or mentoring to help me along (although this could change in the future, because as of the writing of this document, the cloud is a very new thing for our department). In order for you to not be stuck on all the things I was stuck on, I have been voluntold to document all the difficulties I had and the things that I have learned while creating my main project, the First Nations' Digital Income Reporting program.
@@ -32,13 +30,13 @@ Anyways, on to cloud development and (hopefully) making your life easier.
 ## 2.1 Administrative Privileges
 **Problem**
 
-As a software development intern, you do not have access to administrative priviledges on your computer! This means you will not be able to **INSTALL** any programs onto your computer, or **CHANGE** any sensitive data or settings on your computer. Of course, you can still download files from the internet, but when you have to install a new language, or change a PATH variable, then you will not have permission to do so.
+As a software development intern, you do not have access to administrative privileges on your computer! This means you will not be able to **INSTALL** any programs, or **CHANGE** any sensitive data or settings on your computer. Of course, you can still download files from the internet, but when you have to install a new language, or change a PATH variable, then you will not have permission to do so.
 
 **Solution**
 
-To solve this problem, you will need to **enlist the help of your manager**. If the heavens smile upon you this co-op term, then the ministry might be able to get you administrative priviledges to your own computer upon your request; however, that is unlikely to happen, and it did not happen to me<sup>[1]</sup>. More likely, after a lengthy request process, your manager will most likely have to **give admin access to your computer to a trusted coworker**.
+To solve this problem, you will need to **enlist the help of your manager**. If the heavens smile upon you this co-op term, then the ministry might be able to get you administrative privileges to your own computer upon your request; however, that is unlikely to happen, and it did not happen to me<sup>[1]</sup>. More likely, after a lengthy request process, your manager will most likely have to **give admin access to your computer to a trusted coworker**.
 
-After he/she gains access to your computer, **every time you need administrative priviledges, you will have to ask him/her to login and install or change things for you**. It's a bit annoying and inefficient for everyone involved, so its best to first **create a list of all the things you know you need an admin to install for you**, and get them all ready before your coworker buddy comes to install it for you. That way, you can **get the installation done in one (or a few) fell swoop(s)**, rather than have him/her come over a dozen times to install one thing.
+After he/she gains access to your computer, **every time you need administrative priviledges, you will have to ask him/her to login and install or change things for you**. It's a bit annoying and inefficient for everyone involved, so its best to first **create a list of all the things you know you need an admin to install for you**, and get them all ready before your coworker buddy comes to install it for you. That way, you can **get many installations done in one fell swoop**, rather than have him/her come over a dozen times to install one thing every single time.
 
 [1] Sidenote: apparently in the past, software development interns were granted administrative access to their computers, but this priviledge was recently removed for security reasons (I think there was some virus going around?). Anyway, thanks a lot that one intern who probably downloaded a virus, I blame this on you.
 
@@ -159,14 +157,15 @@ Anyway, are those cows I see, grazing in the distance? Looks like it's time to M
 
 ## 2.3 Node Package Manager Problems
 **Problem**
-If you use Node.js, or any advanced Javascript framework, then you will definitely want to use Node Package Manager, or npm. After installing node and setting up a proxy for npm (Refer to section 2.2.4), most npm packages can be installed without problem using the command line. Most. Unfortunately, there are some that won't work, namingly '--global' packages and some packages required to run angular and react.
+If you use Node.js, or any advanced Javascript framework, then you will definitely want to use Node Package Manager, or npm. After installing node and setting up a proxy for npm (Refer to section 2.2.4), most npm packages can be installed without problem using the command line. **Most**. Unfortunately, there are some that won't work, namingly '--global' packages and some packages required to run angular and react.
 
-I figured the problem must lie with my (lack of) administrative privileges, so I asked my coworker to run the command line as admin, so that I could install them with the correct priviledges. Unfortunately, that didn't work, because (and this is just speculation, I'm still not sure exactly why it didn't work) logging into his administrative account must have mixed up the command line's installation addresses.
+I figured the problem must lie with my (lack of) administrative privileges, so I asked my coworker to run the command line as admin, so that I could install them with the correct privileges. Unfortunately, that didn't work, because (and this is just speculation, I'm still not sure exactly why it didn't work) logging into his administrative account must have mixed up the command line's installation addresses.
 
 **Solution (or more accurately, workaround) for non global packages**
+
 Unfortunately, I could not find a way to properly get direct command line installations to work for all node packages. Instead, I used a little workaround.
 
-Although your node package manager is not permitted to install everything you want it to at work, that does not mean you can't do it from home. Although it seems kinda dumb, inefficient, and a bit of a 'duct tape' solution, in the end, it worked, and that's all that matters... right?
+Although your node package manager is not permitted to install everything you want it to at work, **that does not mean you can't do it from home**. Although it seems kinda dumb, inefficient, and a bit of a 'duct tape' solution, in the end, it worked, and that's all that matters... right?
 
 Here is the step by step process.
 1. Write down the package names you need to install.
@@ -182,7 +181,8 @@ Here is the step by step process.
 12. Add (paste) the dependencies from your downloaded package.json to your project's package.json
 13. Voila! You now have all your necessary node libraries.
 
-**Solution (or more accurately, workaround) for global packages**
+**Similar solution (or more accurately, workaround) for global packages**
+
 Similarily and also unfortunately, I also could not find a way to make this work directly on the work computers as well. The only way I knew to get around this, is that whenever you want to use a global command, to transfer the necessary files to your home computer, install/use the global command from home, and then transfer it back to the work computers. This is highly inefficient, so I either avoid global commands whenever possible, or I bring my home computer (which happens to be a laptop) to work, and use my computer with the wifi downstairs when I needed to. Not exactly an elegant solution, but it worked for me.
 
 __**If you come up with a better solution, then by all means, go ahead and use that. This is just what I have learned worked best for me at the time (with the information I possessed).**__
@@ -215,14 +215,15 @@ So... how do you debug on the cloud?
 
 Turns out, when running any back-end server application, the app will not print its logs or statuses (or anything useful) in the browser console. The **browser console** only deals with **client side code**. **Server side logs** are handled by the back-end server console, which in this case, is your **IBM Cloud server**.
 
-You have two ways of retrieving the logs. The first way, the one that I don't like, is through IBM Cloud's web UI, where you can view your logs from there. But IBM's browser-based UI is very slow and the retrieved logs are both hard to read and slow to load.
+You have two ways of retrieving the logs. The first way, the one that I don't like, is through IBM Cloud's web UI, where you can view your logs from there. Simply click on your program from your dashboard, and go to the 'Logs' tab.
 
-The better way (in my opinion), is to use the following command in your Command Line Interface:
+In my opinion, IBM's browser-based UI is very slow and the retrieved logs are both hard to read and slow to load.
+
+**The better way** (in my opinion), is to use the following command locally:
 
 `cf logs --recent applicationName`
 
 with applicationName being whatever name you gave to your application (in the case of my program, it was demo-fntpr-2). To retrieve logs, I prefer using git bash instead of command prompt, because the font is both smaller and easier to read.
-
 
 ## 2.5 UNSOLVED ISSUES
 
@@ -240,6 +241,7 @@ The problem usually goes away after simply waiting 5-10 minutes, although someti
 
 *- Shia Laboeuf*
 
+---
 
 I spent around a month developing this project, meant to be a proof-of-concept prototype application for the IBM Cloud. You can find its github [here](http://github.com/haodafan/IBMCloudDemo-FNTPR). The github shows the ReadMe.MD file, which contains some basic information about my project.
 
@@ -247,7 +249,7 @@ Here, I'll show you how to run and edit it.
 
 # 3.1 Downloading my project
 
-To download the source files for my project, simply open command prompt in the correct folder, and type the command:
+To download the source files for my project, simply open command prompt in the folder you want to put it in (remember, you can shift right click the folder, and select 'open command prompt here'), and type the command:
 
 `git clone https://github.com/haodafan/IBMCloudDemo-FNTPR.git`
 
@@ -278,7 +280,9 @@ First, follow the instructions on Section 4.2 to create your own ClearDB databas
 
 **NOTE:** If you didn't name your database 'ClearDB_LindaTest', you'll have to go into the file 'manifest.yml', and in the 'services' section, change that to match your database name.
 
-Then, you must create the database table structure identical to that of mine. I suggest getting the help of my coworker Linda Yang, as she is the one who created much of my database initially, and is probably the most knowledgeable on what the structure is. A visual structure of my database can be found in the image 'diagram2.png'.
+Then, you must create the database table structure identical to that of mine. I suggest getting the help of my coworker Linda Yang, as she is the one who created much of my database initially, and is probably the most knowledgeable on what the structure is. Here is a visual diagram of my database's structure.
+
+![visual diagram that I hope will help](/diagram2.png)
 
 Once you did both these things, you are ready to set it up on the cloud! It is done in the exact same way as Method 1, except with your own account credentials instead of Nenad's.
 
@@ -322,7 +326,7 @@ The manifest.yml file contains the metadata for your project (like your project 
 
 The sample application uses Cloudant, which is a NoSQL database. Now, even though NoSQL databases like Cloudant and MongoDB are currently all the rage, the government and many large corporations prefer to use good old SQL. So, I'll give you a lil lesson on how to use ClearDB, a free MySQL database service, for your Node application.
 
-1. To create a ClearDB service for IBM Bluemix, simply go to the Catalog, and scroll down to the 'Data Analytics' section to find 'ClearDB for MySQL'. Make sure you're logged into your account and in the 'console.bluemix.net' part of IBM's website. Since it's a third-party application, it only shows up there.
+1. To create a ClearDB service for IBM Bluemix, simply go to the Catalog, and scroll down to the 'Data Analytics' section to find 'ClearDB for MySQL' (make sure you're logged into your account and in the 'console.bluemix.net' part of IBM's website. Since it's a third-party application, it only shows up there).
 2. Give your service a name (Mine was named 'ClearDB_LindaTest').
 3. Click on the first pricing plan, which is free (CB5)
 
@@ -333,14 +337,18 @@ Now, the ClearDB database service has been crated and the required resources all
 
 ```
 services:
-	- serviceName
+	- ClearDB_LindaTest
 ```
+
+(Note: if you set a different name for your service, replace 'ClearDB_LindaTest' with the name of your service)
 
 Now, through the all-important manifest.yml file, you will have linked your database service with this application.
 
 So, how does one use ClearDB in the program itself?
 
-ClearDB is a MySQL database. I largely based my code on [this IBM demo](https://github.com/IBM-Cloud/compose-mysql-helloworld-nodejs), where I learned how to set up and use mysql with node. The main difference between that program and this one, is that the demo uses Compose-for-MySQL instead of ClearDB. The only real difference between the two though, is the name of the service (Mine is 'cleardb' instead of 'compose-for-mysql'). Here are the basics:
+ClearDB is a MySQL database. I largely based my code on [this IBM demo](https://github.com/IBM-Cloud/compose-mysql-helloworld-nodejs), where I learned how to set up and use mysql with node. The main difference between that program and this one, is that the demo uses Compose-for-MySQL instead of ClearDB. The only real difference between the two though, is the name of the service (Mine is 'cleardb' instead of 'compose-for-mysql').
+
+Here are the basics:
 
 ### 4.2.1 Basic setup
 
@@ -363,7 +371,6 @@ var mysql_services = services["cleardb"]; //Gets the specifications for the clea
 var credentials = mysql_services[0].credentials; //Gets the CREDENTIALS for the database.
 //Credentials contain the authentication information that allows you to connect to the database.
 
-
 var connectionString = credentials.uri; // The authentication information in URI string format
 
 ```
@@ -378,7 +385,7 @@ var dbConfig = require('./config/database'); //Where dbConfig = connectionString
 
 ### 4.2.2 Connect vs ConnectionPool
 
-In my **ORIGINAL** code, to establish a connection to the database, I used:
+In my **ORIGINAL** code (based on the tutorials), to establish a connection to the database, I used:
 
 ```javascript
 var dbConfig = require('./config/database');
@@ -406,7 +413,7 @@ The apparent cause, is that when a connection is idle for a long time, MySQL aut
 
 After years of searching far and wide all around the world, I finally came across the answer in a buddhist temple in the mountains of Nepal<sup>[Citation needed]</sup>, in the form of a Stack Overflow answer. Apparently, instead of using a single connection, I need to make a **POOL** of connections for my server, and make sure to release the connection after I finish using it.
 
-My new code looked like this:
+My **new code** looked like this:
 ```javascript
 var dbConfig = require('./config/database');
 
@@ -424,6 +431,8 @@ connectionPool.getConnection(function(err, connection) {
 
 ```
 
+Which fixed the error for me.
+
 With this, you should be able to query at will to the database!
 
 ### 3.2.3 How to Query in your Node program
@@ -439,13 +448,15 @@ connection.query(anyQueryString, function(error, dataReturnedByQuery) {
 });
 ```
 
-Look, it's so condensed, I can already see the water droplets forming around it (haha get it? Wow, I'm not funny)!
+Look, it's so condensed, I can already see the water droplets forming around it (haha get it? I'm sorry).
 
 ### 4.2.4 Editing and Viewing the database with ClearDB and MySQL
 
 Most of the database used in this program was made by my awesome coworker, Linda Yang. She used a MySQL workbench type application, established a remote connection to the database, and created the tables from there. Unfortunately, due to our poor status as ~~peasants~~ interns, we don't actually have access to these SQL tools (As far as I know, at least). Also, to my knowledge, there's no way to query to the ClearDB from the IBM Cloud or from ClearDB's interface itself, so we're going to have to be a bit more clever.
 
 It seems like the **only way we can query this database, is through our application and node.js server**, so what I did, is **make a webpage whose sole function is to make any query to any part of the database**. The application itself is routed from ('/make-query'), and the page contains only a text area to put your query in, a button to submit it, and a section that displays the query result.
+
+![What it looks like](/make-query.png)
 
 The application logic is very simple. The submit button makes a POST request with the inputted text, and I simply use my newQuery function (which just makes a query) with whatever input it received, and displays the result in that section.
 
@@ -454,6 +465,8 @@ Whenever I needed to create a new table, add/remove/edit a column, delete rows, 
 Not the most elegant solution, but one that worked for me nonetheless.
 
 To make things easier for myself, I added a few more functions to my application, accessible through the URL, including a function that displays all the data in the table ('/test'), a function that deletes all rows from the user table ('/delete-all-data-from-table-user'), and one that deletes all from the funding table ('/delete-all-data-from-table-funding').
+
+---
 
 **NOTE:** Whenever you want to log the data from your database, do NOT log it as a string. Remember that it is an OBJECT, so you must log it as such:
 ```javascript
@@ -585,8 +598,8 @@ There are a few other things I would've liked to improve on my program.
 
 Hopefully this document will ~~secure my legacy~~ help you with your job here.
 
-If you have any questions at all about your job here, the program I made, or even if you just want to have a nice chat, you can certainly contact me. In most jobs, you're supposed to work with a team and have a mentor, but if you're like me and working solo on a cloud project, you won't be getting that luxury. If need be, I can be your mentor... for a price. And that price is apparently nothing. So yeah just contact me I guess.
+If you have any questions at all about this document, about your job here, the program I made, or even if you just want to have a nice chat, you can **contact me**! In most jobs, you're supposed to work with a team and have a mentor, but if you're like me and working solo on a cloud project, you won't be getting that luxury. If need be, I can be your mentor... for a price. And that price is apparently nothing. So yeah just contact me I guess. :)
 
-My email is 'haoda.fan@outlook.com'. You can also find me through github: (https://github.com/haodafan), or linkedin (http://linkedin.com/in/haodafan), or you can just text me I guess (226 979 9881). Also please visit my website!!! http://haodafan.com
+My email is 'haoda.fan@outlook.com'. You can also find me through linkedin (http://linkedin.com/in/haodafan), or you can just text me that's fine too (226 979 9881).
 
 Thank you! GL HF!
