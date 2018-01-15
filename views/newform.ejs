@@ -5,8 +5,10 @@
 	<link rel = "stylesheet" href = "../public/stylesheets/formstyling.css">
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 <!--formatting for the first three labels on the form-->
+<head>
+	<body>
 <div class = "container">
-<h1 style = "text-align: center";" >First Nations Report Spending</h1>
+<h1 style = "text-align: center";> First Nations Report Spending </h1>
 <form action = "/make-report" , method = "POST">
 <fieldset id = "theFirstThreeLinesCombined" >
     <p class = "theFirstThreeLines">
@@ -91,8 +93,9 @@ and Community Care program? </label></b>
     to approve reports to the ministry. </b><br>
 	</fieldset> <br>
   	<br>
-	<input style = "margin-left: 5%; " type = "submit" value = "Submit"/>
+	<input id = "submit" style = "margin-left: 5%; " type = "submit" onmouseover = changePointer() value = "Submit"/>
 	<br>
+	<script> function changePointer() { document.getElementById("submit").style.cursor = "pointer"} </script>
 	</form>
   <br><br>
 </div>
@@ -131,7 +134,7 @@ and Community Care program? </label></b>
 		</ol>
 
 	</div>
-</body>
+</body
 
 
 </html>

@@ -4,6 +4,7 @@ module.exports = {
   returnTable: function(tableName, callback) {
     query.newQuery("SELECT * FROM " + schema + "." + tableName + ";", function(err, data) {
       if (err) {
+        //if there is an error from the query
         console.log(err);
       }
       else {
@@ -100,7 +101,7 @@ module.exports = {
                                      checkAndInsert("funding_use", "useOfficeSupplies", reqBody.useOfficeSupplies, data.insertId, function () {
                                        checkAndInsert("funding_use", "useTravel", reqBody.useTravel, data.insertId, function () {
                                          checkAndInsert("funding_use", "useOther", reqBody.useOther, data.insertId, function () {
-
+//UNACCEPTABLE PROGRAMMING!!!!!
                                            // THE NIGHTMARE IS FINALLY OVER
                                            callback();
 
