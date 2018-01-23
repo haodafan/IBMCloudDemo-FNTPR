@@ -2,9 +2,13 @@
 <html>
 <head>
 	<title>First Nations Report Spending</title>
-	<link rel = "stylesheet" href = "../public/stylesheets/formstyling.css">
+	<link rel = "stylesheet" href = "stylesheets/formStyling.css">
+
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 <!--formatting for the first three labels on the form-->
+<style>
+
+</style>
 <head>
 	<body>
 <div class = "container">
@@ -46,7 +50,7 @@ and Long-Term Care will use this information to understand the service delivery 
 <!-- I should probably think 0about the case where one checks both third party AND other :P -->
 
 <fieldset id = "otherFundingSources">
-<b><p>Other Funding Sources: </p></b>
+<b><u>Other Funding Sources: </u></b>
 <b><label for "fundNursing">Did the community also receive funding through the Homemaking and Nursing Services Act? </label></b>
 <input type="radio" name="fundNursing" value="on" checked> Yes
 <input type="radio" name="fundNursing" value="off"> No <br>
@@ -63,7 +67,8 @@ and Community Care program? </label></b>
 <br>
 <br>
 <b><label for "priorities">Please outline priorities for home and community care investment in the next five years:</label> <br></b>
-<textarea id = "priorities" name = "priorities" style = "width: 85%" rows = "5"> </textarea>
+<br>
+<textarea id = "priorities" name = "priorities" style = "width: 99%" rows = "5"> </textarea>
 </fieldset> <br>
 <fieldset id = "fundingSpent">
 <b><p>Please indicate how the funding was spent in 2017-18.<br> Please check all that apply: </p></b>
@@ -82,6 +87,7 @@ and Community Care program? </label></b>
 
  <br>
  <b> <label for "useOther">Any other home and community care or palliative and end-of-care priorities: </label> <br></b>
+ <br>
  <textarea id = "useOther" name = "useOther" style = "width: 85%" rows = "5"> </textarea>
 </fieldset> <br>
 <fieldset id = "commentsAndConfirm">
@@ -100,7 +106,7 @@ and Community Care program? </label></b>
   <br><br>
 </div>
 <!-- I could give this a seperate html page, and use include to add it in, just to modularize everything better. For now I'll just keep it here-->
-	<div style = "margin-left: 7%;" class = "container info">
+	<div style = "margin-left: 5%;" class = "container info">
 		<h2><center> Information and notes: </center></h2>
 		<br>
 		<h4>Eligible areas of Expenditure</h4>

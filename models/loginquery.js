@@ -6,7 +6,14 @@ var db = require('./query');
 
 module.exports = {
   generateHash: function(password) {
+    console.log("hash function is called");
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+  },
+  generateResetHash: function(password, callback)
+  {
+    console.log("hash function is called");
+    var resetPass = bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+    callback(resetPass);
   },
 
   validPassword: function(email, password, data) {
@@ -47,8 +54,9 @@ module.exports = {
       });
     });
     */
-    callback(tokenObject)
+    callback(tokenObject);
   },
+
 
   // This will return a boolean
   isValidToken: function (tokenObject) {

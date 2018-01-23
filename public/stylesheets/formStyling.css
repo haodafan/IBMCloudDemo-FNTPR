@@ -1,35 +1,28 @@
 #whoGaveService{
      margin-left: 5%; margin-right: 5%;
-   }
- #theFirstThreeLinesCombined{
-
-
-    }
- #whoAdministeredCheckBox{
+  }
+#whoAdministeredCheckBox{
    margin-left: 25px;
-    }
+  }
   #otherFundingSources{
    margin-left: 5%; margin-right:5%;
-    }
-
-   #theFirstThreeLinesCombined{
+  }
+#theFirstThreeLinesCombined{
     margin-left: 5%; margin-right:5%;
-   }
-   #clientsAndPriorities{
+  }
+#clientsAndPriorities{
      margin-left: 5%; margin-right: 5%;
-   }
-   #fundingSpent{
+  }
+#fundingSpent{
      margin-left:5%; margin-right: 5%;
-   }
-   #commentsAndConfirm{
+ }
+#commentsAndConfirm{
      margin-left: 5%; margin-right: 5%;
-   }
+  }
 
-
-  .centerTextAllign { text-align: center;
-
-
-    }
-
-   .hello{ margin-left: 25px; float:left; width: 10em; margin-right: -5em; width: 350px;
-    }
+.centerTextAllign {
+  text-align: center;
+  }
+.hello{
+  margin-left: 25px;  float:left;   width: 10em; margin-right: -5em; width: 350px;
+  }

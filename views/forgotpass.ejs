@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+  <link rel = "stylesheet" href = "../public/stylesheets/forgotpassStyling.css">
+    <meta chatset = "UTF-8">
+    <title> Password-Reset  </title>
+</head>
+<body>
+<h1 style = "text-align: center";><u> Reset your password</u> </h1>
+<br>
+<br>
+<p id = "instructions"> Your password will be reset shortly. Please enter the new password you wish to use to login and confirm the password in the subsequent boxes.  </p>
+<br>
+<br>
+<br>
+
+  <form method="post">
+    <div class= "passwordreset">
+      <label for "firstpassword" id = "password"> <b>New Password:</b> </label>
+      <input type = "password"  name = "password1" id = "inputpassword" required = "required">
+      <br>
+      <br>
+      <br>
+      <label for "secondpassword" id = "password"><b> Confirm New Password:</b></label>
+      <input type = "password"  name = "password2" id = "confirminputpassword" required = "required" oninput = "check(this)">
+      <script language = 'javascript' type = 'text/javascript'>
+      function check(input)
+      {
+        console.log("saysomethingplease!");
+        if(input.value != document.getElementById('inputpassword').value)
+        {
+          input.setCustomValidity('Password Must Match');
+        }
+        else
+        {
+          input.setCustomValidity('');
+        }
+      }
+      </script>
+      <br>
+      <br>
+      <br>
+      <input type = "submit" id = "inputbutton">
+    </div>
+</body>
+
+
+
+</html>
