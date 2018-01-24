@@ -6,10 +6,16 @@
 }
 #linkmessage
 {
-
+  margin-top: 1%;
   text-align: center;
   font-weight: bold;
   font-size: 20px;
+}
+#title
+{
+  height: 40%;
+  width: 100%;
+  position: absolute;
 }
 #theanchor
 {
@@ -20,24 +26,14 @@
 {
 
   font-size: 30px;
-  color: blue;
+  color: #00008b
   text-align: center;
   font-weight: bold;
 
 }
-#bottomblock
+#topblock
 {
-  width:96.5%;
-  background: gray;
-  border: 24px solid gray;
-  position: absolute;
-
-  height: 150px;
-  bottom: 0px;
-
-
-
-
+  margin-bottom: 3%;
 }
 #bottompager
 {

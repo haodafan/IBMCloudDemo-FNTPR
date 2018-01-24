@@ -1,26 +1,29 @@
-.passwordreset{
-  margin-left: 2.5%;
-  margin-right: 2.5%;
+#passwordreset{
 
 }
 .inputbox{
   width: 8%;
 }
-#password{
-    float:left;   width: 15%;
+#password
+{
+     margin-left: 25%;
+     width: 15%;
+     float:left;
 }
-#inputbutton{
-  color: black;
-  margin-top: 1%;
-  margin-left: 16%;
-  background-color: white;
-  cursor:pointer;
-  padding: 5px 5px;
-  height: 25px;
-  width: 6%;
+.enterpassword
+{
+  height: 2%;
+  margin-right: 10%;
 }
+
 #instructions{
-  text-decoration: underline;
+
   text-align: center;
   font-weight: bold;
+  font-size: 22px;
+}
+
+#submitButton
+{
+  margin-right: -40%;
 }
